@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   getStoredGeminiKey,
   saveStoredGeminiKey,
@@ -12,8 +12,8 @@ export default function AIStudioModal({ isOpen, onClose, onKeysUpdated }) {
   const [activeTab, setActiveTab] = useState("generator"); // 'generator' | 'settings'
 
   // API Key States
-  const [geminiKey, setGeminiKey] = useState("");
-  const [unsplashKey, setUnsplashKey] = useState("");
+  const [geminiKey, setGeminiKey] = useState(() => getStoredGeminiKey());
+  const [unsplashKey, setUnsplashKey] = useState(() => getStoredUnsplashKey());
   const [showGeminiKey, setShowGeminiKey] = useState(false);
   const [showUnsplashKey, setShowUnsplashKey] = useState(false);
   const [keySaveMessage, setKeySaveMessage] = useState("");
@@ -25,22 +25,9 @@ export default function AIStudioModal({ isOpen, onClose, onKeysUpdated }) {
   const [sqft, setSqft] = useState("350 sq.ft");
   const [userPrompt, setUserPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedConcept, setGeneratedConcept] = useState(null);
+  const [generatedConcept, setGeneratedConcept] = useState(() => AI_PRESETS[0]);
   const [generationError, setGenerationError] = useState("");
   const [copiedHex, setCopiedHex] = useState(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      setGeminiKey(getStoredGeminiKey());
-      setUnsplashKey(getStoredUnsplashKey());
-      setKeySaveMessage("");
-      setGenerationError("");
-      // Default to first preset if no concept generated yet
-      if (!generatedConcept) {
-        setGeneratedConcept(AI_PRESETS[0]);
-      }
-    }
-  }, [isOpen]);
 
   if (!isOpen) return null;
 

@@ -2,11 +2,43 @@ import { useState, useMemo } from "react";
 import { ROOM_TYPES, DESIGN_STYLES, HOME_DESIGNS } from "../data/designsData";
 import { searchUnsplashDesigns, getStoredUnsplashKey } from "../services/apiService";
 
-export default function GallerySection({ favorites, onToggleFavorite, onOpenAIStudio }) {
+export default function GallerySection({ favorites, onToggleFavorite, onOpenAIStudio, activeIdeaFilter }) {
   const [selectedRoom, setSelectedRoom] = useState("All Spaces");
   const [selectedStyle, setSelectedStyle] = useState("All Styles");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeModalDesign, setActiveModalDesign] = useState(null);
+
+  // Derive effective room & search taking into account external click from navbar mega-menu
+  const effectiveRoom = useMemo(() => {
+    if (activeIdeaFilter) {
+      const lower = activeIdeaFilter.toLowerCase();
+      if (lower.includes("kitchen")) return "Modular Kitchen";
+      if (lower.includes("bedroom") || lower.includes("guest") || lower.includes("kids")) return "Master Bedroom";
+      if (lower.includes("living") || lower.includes("tv unit")) return "Living Room";
+      if (lower.includes("bathroom") || lower.includes("bath")) return "Luxury Bath";
+      if (lower.includes("pooja")) return "Pooja Room";
+      if (lower.includes("dining")) return "Dining & Bar";
+      if (lower.includes("study") || lower.includes("office")) return "Home Office";
+      if (lower.includes("balcony")) return "Balcony & Deck";
+      if (lower.includes("wardrobe") || lower.includes("closet")) return "Walk-in Closet";
+    }
+    return selectedRoom;
+  }, [activeIdeaFilter, selectedRoom]);
+
+  const effectiveQuery = useMemo(() => {
+    if (activeIdeaFilter) {
+      const lower = activeIdeaFilter.toLowerCase();
+      const isKnown = [
+        "kitchen", "bedroom", "guest", "kids", "living", "tv unit",
+        "bathroom", "bath", "pooja", "dining", "study", "office",
+        "balcony", "wardrobe", "closet"
+      ].some((k) => lower.includes(k));
+      if (!isKnown) {
+        return activeIdeaFilter.replace(/designs?/gi, "").trim();
+      }
+    }
+    return searchQuery;
+  }, [activeIdeaFilter, searchQuery]);
 
   // Unsplash Live Search State
   const [liveUnsplashResults, setLiveUnsplashResults] = useState(null);
@@ -21,14 +53,14 @@ export default function GallerySection({ favorites, onToggleFavorite, onOpenAISt
     }
 
     return HOME_DESIGNS.filter((design) => {
-      const matchRoom = selectedRoom === "All Spaces" || design.roomType === selectedRoom;
+      const matchRoom = effectiveRoom === "All Spaces" || design.roomType === effectiveRoom;
       const matchStyle = selectedStyle === "All Styles" || design.style === selectedStyle;
 
-      if (!searchQuery.trim()) {
+      if (!effectiveQuery.trim()) {
         return matchRoom && matchStyle;
       }
 
-      const q = searchQuery.toLowerCase();
+      const q = effectiveQuery.toLowerCase();
       const matchSearch =
         design.title.toLowerCase().includes(q) ||
         design.roomType.toLowerCase().includes(q) ||
@@ -39,7 +71,7 @@ export default function GallerySection({ favorites, onToggleFavorite, onOpenAISt
 
       return matchRoom && matchStyle && matchSearch;
     });
-  }, [selectedRoom, selectedStyle, searchQuery, liveUnsplashResults]);
+  }, [effectiveRoom, selectedStyle, effectiveQuery, liveUnsplashResults]);
 
   // Handle live Unsplash API Search
   const handleLiveUnsplashSearch = async (e) => {
@@ -61,7 +93,7 @@ export default function GallerySection({ favorites, onToggleFavorite, onOpenAISt
       } else {
         setUnsplashError("No live results found for this keyword. Showing curated collection.");
       }
-    } catch (err) {
+    } catch {
       setUnsplashError("Failed to fetch from Unsplash. Please verify your API key in API Settings.");
     } finally {
       setIsSearchingUnsplash(false);

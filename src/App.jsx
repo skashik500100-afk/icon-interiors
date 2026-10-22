@@ -1,31 +1,32 @@
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import GallerySection from "./components/GallerySection";
-import BeforeAfterSection from "./components/BeforeAfterSection";
-import RoomCustomizer from "./components/RoomCustomizer";
+import HomePortal from "./components/HomePortal";
+import DesignIdeasView from "./components/DesignIdeasView";
+import HowItWorksView from "./components/HowItWorksView";
+import ModularJourneySection from "./components/ModularJourneySection";
 import CostEstimator from "./components/CostEstimator";
-import AboutServicesSection from "./components/AboutServicesSection";
-import TestimonialsSection from "./components/TestimonialsSection";
-import ContactSection from "./components/ContactSection";
+import RoomCustomizer from "./components/RoomCustomizer";
+import StoreLocatorView from "./components/StoreLocatorView";
 import Footer from "./components/Footer";
-import AIStudioModal from "./components/AIStudioModal";
 import FavoritesDrawer from "./components/FavoritesDrawer";
-import { getStoredGeminiKey } from "./services/apiService";
 import "./App.css";
+import "./Views.css";
 
 function App() {
-  const [isAIStudioOpen, setIsAIStudioOpen] = useState(false);
+  const [currentView, setCurrentView] = useState("home"); // 'home' | 'design-ideas' | 'how-it-works' | 'modular-journey' | 'price-calculators' | 'store-locator'
+  const [currentCategory, setCurrentCategory] = useState("Master Bedroom Designs");
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+  const [selectedCity, setSelectedCity] = useState(() => {
+    return localStorage.getItem("icon_selected_city") || "Guntur, AP";
+  });
   const [favorites, setFavorites] = useState(() => {
     try {
       const saved = localStorage.getItem("icon_user_favorites");
-      return saved ? JSON.parse(saved) : ["des-1", "des-2", "des-3"];
+      return saved ? JSON.parse(saved) : ["mbr-1", "mbr-2", "kit-1"];
     } catch {
-      return ["des-1", "des-2", "des-3"];
+      return ["mbr-1", "mbr-2", "kit-1"];
     }
   });
-  const [hasApiKey, setHasApiKey] = useState(Boolean(getStoredGeminiKey()));
 
   useEffect(() => {
     try {
@@ -34,6 +35,19 @@ function App() {
       console.warn("Failed to persist favorites:", e);
     }
   }, [favorites]);
+
+  const handleSelectCity = (city) => {
+    setSelectedCity(city);
+    localStorage.setItem("icon_selected_city", city);
+  };
+
+  const handleNavigate = (view, payload) => {
+    setCurrentView(view);
+    if (view === "design-ideas" && payload) {
+      setCurrentCategory(payload);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleToggleFavorite = (id) => {
     setFavorites((prev) =>
@@ -45,83 +59,80 @@ function App() {
     setFavorites((prev) => prev.filter((item) => item !== id));
   };
 
-  const handleKeysUpdated = () => {
-    setHasApiKey(Boolean(getStoredGeminiKey()));
-  };
-
   return (
     <div className="icon-luxury-app">
-      {/* Navbar */}
+      {/* 2-Tier Livspace-Style Luxury Navbar with Clean View Routing */}
       <Navbar
-        onOpenAIStudio={() => setIsAIStudioOpen(true)}
+        currentView={currentView}
+        onNavigate={handleNavigate}
         onOpenFavorites={() => setIsFavoritesOpen(true)}
         favoritesCount={favorites.length}
-        hasApiKey={hasApiKey}
+        selectedCity={selectedCity}
+        onSelectCity={handleSelectCity}
       />
 
-      <main>
-        {/* Editorial Hero */}
-        <HeroSection onOpenAIStudio={() => setIsAIStudioOpen(true)} />
+      <main className="main-view-container">
+        {/* VIEW 1: HOME PORTAL */}
+        {currentView === "home" && (
+          <HomePortal onNavigate={handleNavigate} />
+        )}
 
-        {/* Mega Gallery: All Types of Home Designs */}
-        <GallerySection
-          favorites={favorites}
-          onToggleFavorite={handleToggleFavorite}
-          onOpenAIStudio={() => setIsAIStudioOpen(true)}
-        />
+        {/* VIEW 2: DESIGN IDEAS (Matching Image 2 with 10+ images) */}
+        {currentView === "design-ideas" && (
+          <DesignIdeasView
+            category={currentCategory}
+            onSelectCategory={setCurrentCategory}
+            onNavigate={handleNavigate}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+            selectedCity={selectedCity}
+          />
+        )}
 
-        {/* Interactive Before & After Renovation Slider */}
-        <BeforeAfterSection />
+        {/* VIEW 3: HOW IT WORKS (Matching Image 5: 5 Steps) */}
+        {currentView === "how-it-works" && (
+          <HowItWorksView
+            onNavigate={handleNavigate}
+            selectedCity={selectedCity}
+          />
+        )}
 
-        {/* Interactive Tactile Material Studio */}
-        <RoomCustomizer />
+        {/* VIEW 4: THE MODULAR JOURNEY (Matching Image 3 & 4) */}
+        {currentView === "modular-journey" && (
+          <ModularJourneySection selectedCity={selectedCity} />
+        )}
 
-        {/* Interactive Home Cost & Package Estimator */}
-        <CostEstimator />
+        {/* VIEW 5: PRICE CALCULATORS & ROOM CUSTOMIZER */}
+        {currentView === "price-calculators" && (
+          <div className="calculators-page-wrap">
+            <CostEstimator />
+            <RoomCustomizer />
+          </div>
+        )}
 
-        {/* About & 4-Step Architectural Process */}
-        <AboutServicesSection />
-
-        {/* Homeowner Testimonials */}
-        <TestimonialsSection />
-
-        {/* Luxury Consultation Form */}
-        <ContactSection />
+        {/* VIEW 6: STORE LOCATOR (Exclusively Guntur City Flagship) */}
+        {currentView === "store-locator" && (
+          <StoreLocatorView onNavigate={handleNavigate} />
+        )}
       </main>
 
-      {/* Footer */}
-      <Footer onOpenAIStudio={() => setIsAIStudioOpen(true)} />
+      {/* Persistent Footer on all views */}
+      <Footer onNavigate={handleNavigate} />
 
-      {/* Floating Action Button for Quick AI Studio Launch */}
+      {/* Floating Action WhatsApp Button for Instant Consultation in Guntur */}
       <div className="floating-actions-bar">
-        <button
-          className="floating-ai-btn"
-          onClick={() => setIsAIStudioOpen(true)}
-          title="Open Gemini AI Interior Designer"
-        >
-          <span className="sparkle-anim">✦</span>
-          <span>Gemini AI Studio</span>
-          <span className={`fab-key-dot ${hasApiKey ? "active" : ""}`} />
-        </button>
-
         <a
-          href="https://wa.me/919885001008?text=Hello%20ICON%20INTERIORS!%20I%20would%20like%20to%20consult%20with%20an%20architect%20about%20my%20home%20design."
+          href={`https://wa.me/919885001008?text=Hello%20ICON%20INTERIORS!%20I%20would%20like%20to%20consult%20with%20your%20Guntur%20architectural%20team%20regarding%20my%20home%20design.`}
           target="_blank"
           rel="noreferrer"
           className="floating-whatsapp-btn"
-          title="Direct WhatsApp Consultation"
+          title="Direct WhatsApp Consultation - Guntur Flagship Studio"
           aria-label="Direct WhatsApp Consultation"
         >
-          <span>💬 WhatsApp</span>
+          <span className="wa-icon">💬</span>
+          <span>Chat on WhatsApp</span>
         </a>
       </div>
-
-      {/* AI Studio & API Key Modal */}
-      <AIStudioModal
-        isOpen={isAIStudioOpen}
-        onClose={() => setIsAIStudioOpen(false)}
-        onKeysUpdated={handleKeysUpdated}
-      />
 
       {/* Saved Favorites Drawer */}
       <FavoritesDrawer

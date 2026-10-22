@@ -1,4 +1,13 @@
-export default function HeroSection({ onOpenAIStudio }) {
+export default function HeroSection({ onNavigate }) {
+  const popularPills = [
+    "Master Bedroom Designs",
+    "Modular Kitchen Designs",
+    "Living Room Designs",
+    "Wardrobe Designs",
+    "Bathroom Designs",
+    "Pooja Room Designs"
+  ];
+
   return (
     <section className="hero-section" id="home">
       <div className="hero-overlay" />
@@ -8,7 +17,7 @@ export default function HeroSection({ onOpenAIStudio }) {
         <div className="hero-badge">
           <span className="badge-sparkle">✦</span>
           <span>BESPOKE ARCHITECTURE & LUXURY RESIDENCES</span>
-          <span className="badge-location">AP & TELANGANA</span>
+          <span className="badge-location">📍 GUNTUR FLAGSHIP STUDIO</span>
         </div>
 
         <h1 className="hero-headline">
@@ -18,29 +27,42 @@ export default function HeroSection({ onOpenAIStudio }) {
         </h1>
 
         <p className="hero-subhead">
-          We curate award-winning residential sanctuaries — from grand double-height Italian living spaces
-          and precision modular kitchens to serene Japandi master suites and wellness spa bathrooms.
+          We curate award-winning residential sanctuaries in Guntur & Andhra Pradesh — from grand double-height Italian living spaces
+          and precision modular kitchens to serene master bedroom suites and wellness spa bathrooms.
         </p>
 
         <div className="hero-actions">
-          <a href="#gallery" className="btn-gold-primary">
-            Explore All 16+ Home Designs <span className="btn-arrow">↓</span>
-          </a>
-          <button onClick={onOpenAIStudio} className="btn-ai-hero">
-            <span className="sparkle">✦</span> Launch Gemini AI Designer
+          <button
+            onClick={() => onNavigate && onNavigate("design-ideas", "Master Bedroom Designs")}
+            className="btn-gold-primary"
+          >
+            Explore Design Ideas <span className="btn-arrow">›</span>
           </button>
-          <a href="#estimator" className="btn-outline-gold">
-            Instant Cost Calculator ↗
-          </a>
+          <button
+            onClick={() => onNavigate && onNavigate("how-it-works")}
+            className="btn-coral-hero"
+          >
+            How It Works (5 Steps) ›
+          </button>
+          <button
+            onClick={() => onNavigate && onNavigate("store-locator")}
+            className="btn-outline-gold"
+          >
+            Visit Guntur Studio 📍
+          </button>
         </div>
 
         <div className="hero-pills-row">
-          <span className="pill-label">Popular Categories:</span>
-          <a href="#gallery" className="category-pill">Modular Italian Kitchens</a>
-          <a href="#gallery" className="category-pill">Japandi Suites</a>
-          <a href="#gallery" className="category-pill">Marble Bathrooms</a>
-          <a href="#gallery" className="category-pill">Walk-in Closets</a>
-          <a href="#gallery" className="category-pill">Heritage Pooja Mandirs</a>
+          <span className="pill-label">Popular Collections:</span>
+          {popularPills.map((p) => (
+            <button
+              key={p}
+              className="category-pill"
+              onClick={() => onNavigate && onNavigate("design-ideas", p)}
+            >
+              {p.replace(/designs?/gi, "").trim()}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -64,9 +86,9 @@ export default function HeroSection({ onOpenAIStudio }) {
         </div>
         <div className="stat-divider" />
         <div className="stat-card">
-          <span className="stat-number">15+</span>
-          <span className="stat-title">Design Excellence Awards</span>
-          <span className="stat-detail">Top Architectural Studio</span>
+          <span className="stat-number">1</span>
+          <span className="stat-title">Exclusive Experience Center</span>
+          <span className="stat-detail">Syamala Nagar, Guntur</span>
         </div>
       </div>
     </section>

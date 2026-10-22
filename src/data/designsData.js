@@ -1,465 +1,714 @@
 // Curated High-Definition Interior Designs across all home categories
-export const ROOM_TYPES = [
-  "All Spaces",
-  "Living Room",
-  "Modular Kitchen",
-  "Master Bedroom",
-  "Luxury Bath",
-  "Dining & Bar",
-  "Home Office",
-  "Balcony & Deck",
-  "Walk-in Closet",
-  "Pooja Room"
-];
+export const FIVE_STATES_CITIES = {
+  "Andhra Pradesh (AP)": [
+    { name: "Guntur", note: "Flagship Design Studio & Experience Center" },
+    { name: "Vijayawada", note: "On-Site Execution Team" },
+    { name: "Visakhapatnam", note: "Coastal Projects" },
+    { name: "Amaravati", note: "Capital City Projects" },
+    { name: "Tirupati", note: "Consultation Desk" },
+    { name: "Rajahmundry", note: "Active Projects" },
+    { name: "Nellore", note: "Consultation Desk" },
+    { name: "Kakinada", note: "Smart City Projects" }
+  ],
+  "Telangana (TS)": [
+    { name: "Hyderabad", note: "Banjara Hills & Gachibowli" },
+    { name: "Warangal", note: "Heritage & Modern Residences" },
+    { name: "Karimnagar", note: "Turnkey Execution" },
+    { name: "Nizamabad", note: "Residential Projects" },
+    { name: "Khammam", note: "Villas & Apartments" }
+  ],
+  "Tamil Nadu (TN)": [
+    { name: "Chennai", note: "Anna Nagar & OMR Hub" },
+    { name: "Coimbatore", note: "Bespoke Villa Studio" },
+    { name: "Madurai", note: "Classic & Contemporary" },
+    { name: "Tiruchirappalli", note: "Consultation Desk" },
+    { name: "Salem", note: "Residential Projects" }
+  ],
+  "Kerala": [
+    { name: "Kochi", note: "Marine Drive & Waterfront Homes" },
+    { name: "Thiruvananthapuram", note: "Capital Studio" },
+    { name: "Kozhikode", note: "Coastal Modern Homes" },
+    { name: "Thrissur", note: "Cultural Capital Projects" },
+    { name: "Kollam", note: "Turnkey Residences" }
+  ],
+  "Karnataka": [
+    { name: "Bengaluru", note: "Indiranagar & Whitefield" },
+    { name: "Mysuru", note: "Heritage Luxury Living" },
+    { name: "Mangaluru", note: "Coastal Modern Sanctuaries" },
+    { name: "Hubballi", note: "Turnkey Execution" },
+    { name: "Belagavi", note: "Villa Architecture" }
+  ]
+};
 
-export const DESIGN_STYLES = [
-  "All Styles",
-  "Modern Luxury",
-  "Japandi",
-  "Minimalist",
-  "Neo-Classical",
-  "Industrial Chic",
-  "Bohemian",
-  "Warm Organic"
-];
+export const DESIGN_IDEAS_LIST = {
+  col1: [
+    "Modular Kitchen Designs",
+    "Wardrobe Designs",
+    "Bathroom Designs",
+    "Master Bedroom Designs",
+    "Living Room Designs",
+    "Pooja Room Designs",
+    "TV Unit Designs",
+    "False Ceiling Designs",
+    "Kids Bedroom Designs",
+    "Balcony Designs",
+    "Dining Room Designs"
+  ],
+  col2: [
+    "Guest Bedroom Designs",
+    "Window Designs",
+    "Flooring Designs",
+    "Wall Decor Designs",
+    "Wall Paint Designs",
+    "Home Wallpaper Designs",
+    "Tile Designs",
+    "Study Room Designs",
+    "Kitchen Sinks",
+    "Space Saving Designs",
+    "Door Designs"
+  ]
+};
 
-export const HOME_DESIGNS = [
-  {
-    id: "des-1",
-    title: "The Grand Travertine Living Lounge",
-    roomType: "Living Room",
-    style: "Modern Luxury",
-    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85",
-    sqft: "580 sq.ft",
-    budget: "₹6.5L - ₹9L",
-    duration: "25 Days",
-    location: "Syamala Nagar, Guntur",
-    featured: true,
-    description: "Expansive double-height living pavilion featuring book-matched Italian travertine walls, recessed architectural cove lighting, and bespoke Italian linen low-profile sectional seating.",
-    materials: ["Italian Travertine", "Brushed Brass", "Warm Walnut", "Belgian Linen"],
-    palette: ["#E6DEC9", "#BFA779", "#2A2520", "#5C5346", "#F3EEE3"]
-  },
-  {
-    id: "des-2",
-    title: "Minimalist Calacatta Island Kitchen",
-    roomType: "Modular Kitchen",
-    style: "Minimalist",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
-    sqft: "240 sq.ft",
-    budget: "₹5.5L - ₹8.5L",
-    duration: "20 Days",
-    location: "Koretipadu, Guntur",
-    featured: true,
-    description: "Seamless handleless acrylic cabinetry with waterfall Calacatta gold quartz island, integrated high-efficiency Bosch appliances, and concealed anti-glare profile lighting.",
-    materials: ["Calacatta Quartz", "Anti-Fingerprint Acrylic", "Hafele Hardware", "Smoked Glass"],
-    palette: ["#FFFFFF", "#D3C29E", "#1E1E1E", "#9A9386", "#F2EFEB"]
-  },
-  {
-    id: "des-3",
-    title: "Japandi Slatted Wood Master Suite",
-    roomType: "Master Bedroom",
-    style: "Japandi",
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
-    sqft: "340 sq.ft",
-    budget: "₹4.8L - ₹7.2L",
-    duration: "18 Days",
-    location: "Lakshmipuram, Guntur",
-    featured: true,
-    description: "A calming oasis of natural acoustic slatted white oak paneling, floating platform king bed, integrated bedside wireless charging, and textured Wabi-Sabi lime-wash accents.",
-    materials: ["Natural White Oak", "Limewash Plaster", "Organic Cotton", "Ceramic Sconces"],
-    palette: ["#D8CEBE", "#8F7E6B", "#3D352B", "#ECE6DC", "#594B3C"]
-  },
-  {
-    id: "des-4",
-    title: "Carrara Marble Freestanding Wellness Spa",
-    roomType: "Luxury Bath",
-    style: "Modern Luxury",
-    image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=85",
-    sqft: "160 sq.ft",
-    budget: "₹3.8L - ₹5.5L",
-    duration: "15 Days",
-    location: "Vidya Nagar, Guntur",
-    featured: true,
-    description: "Spa-grade sanctuary featuring a freestanding resin stone bathtub, floor-to-ceiling bookmatched Carrara porcelain, thermo-controlled Grohe rain showers, and anti-fog LED smart vanity mirrors.",
-    materials: ["Carrara Porcelain", "Champagne Gold Fixtures", "Fluted Glass", "Waterproof Teak"],
-    palette: ["#F6F6F6", "#C7BA9C", "#242424", "#7F7B75", "#DDD7CD"]
-  },
-  {
-    id: "des-5",
-    title: "Royal Velvet & Molded Classical Suite",
-    roomType: "Master Bedroom",
-    style: "Neo-Classical",
-    image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1200&q=85",
-    sqft: "380 sq.ft",
-    budget: "₹6.0L - ₹9.5L",
-    duration: "24 Days",
-    location: "Amaravati Road, Guntur",
-    featured: false,
-    description: "Opulent neo-classical styling incorporating intricate Parisian wall moldings, a floor-to-ceiling emerald velvet tufted headboard, crystal bedside pendants, and hand-scraped chevron hardwood.",
-    materials: ["Chevron Hardwood", "Jewel Velvet", "Gilded Brass", "Plaster Cornices"],
-    palette: ["#1B382B", "#CBB279", "#EFE9DF", "#2A231C", "#605646"]
-  },
-  {
-    id: "des-6",
-    title: "Smoked Oak Executive Study & Library",
-    roomType: "Home Office",
-    style: "Modern Luxury",
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85",
-    sqft: "220 sq.ft",
-    budget: "₹3.5L - ₹5.2L",
-    duration: "14 Days",
-    location: "Brodipet, Guntur",
-    featured: false,
-    description: "Purpose-built executive workspace with bespoke floor-to-ceiling library shelving, warm LED shelving profiles, leather-inlaid walnut desk, and acoustic felt baffles for soundproof meetings.",
-    materials: ["Dark Smoked Oak", "Italian Leather", "Acoustic Felt", "Blackened Steel"],
-    palette: ["#231F1C", "#8B7355", "#C2B299", "#3F372F", "#DCD5C9"]
-  },
-  {
-    id: "des-7",
-    title: "Backlit Onyx Grand Dining Pavilion",
-    roomType: "Dining & Bar",
-    style: "Modern Luxury",
-    image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1200&q=85",
-    sqft: "320 sq.ft",
-    budget: "₹5.8L - ₹8.0L",
-    duration: "20 Days",
-    location: "Pattabhipuram, Guntur",
-    featured: true,
-    description: "Custom 8-seater Sahara Noir marble dining table complemented by a show-stopping backlit amber onyx accent wall, architectural branching brass chandelier, and integrated wine display.",
-    materials: ["Sahara Noir Marble", "Backlit Amber Onyx", "Champagne Velvet", "Cast Brass"],
-    palette: ["#DCA34D", "#1C1814", "#7B5B2E", "#EFE2CE", "#3D3428"]
-  },
-  {
-    id: "des-8",
-    title: "Skyline Pergola & Teak Deck Oasis",
-    roomType: "Balcony & Deck",
-    style: "Warm Organic",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85",
-    sqft: "280 sq.ft",
-    budget: "₹2.8L - ₹4.5L",
-    duration: "12 Days",
-    location: "Autonagar, Vijayawada",
-    featured: false,
-    description: "Outdoor living terrace with weather-treated composite teak decking, motorized louvred pergola, built-in vertical herb wall with drip irrigation, and weatherproof outdoor daybed.",
-    materials: ["Composite Teak", "Powder-coated Aluminum", "Sunbrella Fabrics", "Natural Travertine"],
-    palette: ["#7B8B6F", "#B4834A", "#E4DACB", "#372B20", "#54644B"]
-  },
-  {
-    id: "des-9",
-    title: "Boutique Tinted Glass Walk-in Wardrobe",
-    roomType: "Walk-in Closet",
-    style: "Modern Luxury",
-    image: "https://images.unsplash.com/photo-1558997519-83ea9252def8?auto=format&fit=crop&w=1200&q=85",
-    sqft: "190 sq.ft",
-    budget: "₹4.5L - ₹7.0L",
-    duration: "16 Days",
-    location: "Benz Circle, Vijayawada",
-    featured: true,
-    description: "Boutique fashion wardrobe with bronze tinted glass doors, aluminum slim frames, interior sensor illumination, suede-lined accessory drawers, and central quartz jewelry island.",
-    materials: ["Bronze Fluted Glass", "Slim Aluminum Profiles", "Velvet & Suede", "LED Profiles"],
-    palette: ["#3A3026", "#C4A265", "#EDE1CE", "#191613", "#74624D"]
-  },
-  {
-    id: "des-10",
-    title: "Modern Heritage Brass Jali Pooja Mandir",
-    roomType: "Pooja Room",
-    style: "Neo-Classical",
-    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85",
-    sqft: "120 sq.ft",
-    budget: "₹3.0L - ₹5.0L",
-    duration: "15 Days",
-    location: "Nallapadu, Guntur",
-    featured: false,
-    description: "Sanctified space with hand-carved solid teak doorway, CNC precision waterjet cut brass jali panels, backlit Thassos white marble backdrop, and concealed brass bell accents.",
-    materials: ["Burma Teak Wood", "Solid Brass Jali", "Thassos Marble", "Warm Cove Lighting"],
-    palette: ["#DAA520", "#FFFFFF", "#4A2E12", "#E8D8B8", "#784B1A"]
-  },
-  {
-    id: "des-11",
-    title: "Nordic Industrial Open-Plan Loft",
-    roomType: "Living Room",
-    style: "Industrial Chic",
-    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
-    sqft: "650 sq.ft",
-    budget: "₹6.0L - ₹8.8L",
-    duration: "26 Days",
-    location: "Kanuru, Vijayawada",
-    featured: false,
-    description: "Exposed micro-cement ceilings paired with matte black steel room dividers, cognac Italian leather sofa, reclaimed timber coffee table, and oversized gallery wall.",
-    materials: ["Micro-cement", "Matte Black Steel", "Cognac Leather", "Reclaimed Timber"],
-    palette: ["#96582A", "#33312E", "#8A8884", "#DCD8D0", "#1C1B19"]
-  },
-  {
-    id: "des-12",
-    title: "Warm Organic Terracotta Bistro Kitchen",
-    roomType: "Modular Kitchen",
-    style: "Warm Organic",
-    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
-    sqft: "210 sq.ft",
-    budget: "₹4.6L - ₹6.8L",
-    duration: "18 Days",
-    location: "Ring Road, Guntur",
-    featured: false,
-    description: "Artisanal hand-glazed zellige backsplash tiles, terracotta floor accents, soft clay fluted cabinets, and brushed unlacquered brass bridge faucets.",
-    materials: ["Handmade Zellige Tiles", "Clay Cabinetry", "Brushed Raw Brass", "Butcher Block"],
-    palette: ["#B8694F", "#D7B594", "#F4EDE2", "#473C35", "#89503A"]
-  },
-  {
-    id: "des-13",
-    title: "Boho Sun-Drenched Master Sanctuary",
-    roomType: "Master Bedroom",
-    style: "Bohemian",
-    image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=85",
-    sqft: "310 sq.ft",
-    budget: "₹3.8L - ₹5.6L",
-    duration: "16 Days",
-    location: "Mangalagiri, AP",
-    featured: false,
-    description: "Airy, natural master retreat featuring handwoven cane bedframe, rattan pendant lights, indoor olive tree in terracotta urn, and layering of washed linen and jute rugs.",
-    materials: ["Natural Cane & Rattan", "Jute", "Washed Belgian Linen", "Raw Clay"],
-    palette: ["#C59B6A", "#7A8267", "#F2EEE8", "#453C35", "#E0D3C1"]
-  },
-  {
-    id: "des-14",
-    title: "Double-Height Glass Villa Living",
-    roomType: "Living Room",
-    style: "Modern Luxury",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85",
-    sqft: "750 sq.ft",
-    budget: "₹9.5L - ₹14.0L",
-    duration: "32 Days",
-    location: "Amaravati Capital City",
-    featured: true,
-    description: "Architectural masterpiece with 22-foot floor-to-ceiling glass curtain walls, motorized acoustic drapery, integrated bio-ethanol fireplace, and sculptural boucle armchairs.",
-    materials: ["Architectural Glass", "Bio-Ethanol Marble Hearth", "Boucle Fabric", "Fluted Walnut"],
-    palette: ["#1F1E1B", "#CBB281", "#E6E1D7", "#5E5649", "#918472"]
-  },
-  {
-    id: "des-15",
-    title: "Fluted Charcoal & Slate Powder Room",
-    roomType: "Luxury Bath",
-    style: "Minimalist",
-    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=85",
-    sqft: "90 sq.ft",
-    budget: "₹2.2L - ₹3.4L",
-    duration: "10 Days",
-    location: "Gujjanagundla, Guntur",
-    featured: false,
-    description: "Moody dramatic powder room featuring monolith carved black granite pedestal basin, fluted charcoal tile walls, warm backlit mirror halo, and minimalist matte gold wall taps.",
-    materials: ["Black Granite Basin", "Fluted Ceramic Tile", "Warm Backlight Halo", "Matte Gold"],
-    palette: ["#141312", "#D2B06F", "#4D4841", "#8C8376", "#2B2824"]
-  },
-  {
-    id: "des-16",
-    title: "Biophilic Creative Studio & Office",
-    roomType: "Home Office",
-    style: "Warm Organic",
-    image: "https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=1200&q=85",
-    sqft: "180 sq.ft",
-    budget: "₹2.9L - ₹4.2L",
-    duration: "14 Days",
-    location: "Tadepalli, Vijayawada",
-    featured: false,
-    description: "Inspiring workspace with integrated living plant wall, natural light skylight simulation, dual ergonomic monitor mounting, and solid ash wood sit-stand work table.",
-    materials: ["Living Foliage Wall", "Solid Ash Wood", "Linoleum Desk Mat", "Matte White Fixtures"],
-    palette: ["#4E634F", "#C4A269", "#EDE6DC", "#283028", "#8B7355"]
+// Rich database with 10+ high resolution designs per category
+export const CATEGORY_DESIGNS_DB = {
+  "Master Bedroom Designs": [
+    {
+      id: "mbr-1",
+      title: "Warm Ochre Velvet Master Suite",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1200&q=85",
+      sqft: "380 sq.ft",
+      budget: "₹5.8L - ₹8.0L",
+      description: "Sunlit master suite featuring a statement quilted ochre headboard, geometric artwork, warm sheer curtains, and oak bedside tables.",
+      materials: ["Plush Velvet", "Natural Oak", "Belgian Linen", "Concealed Cove LEDs"]
+    },
+    {
+      id: "mbr-2",
+      title: "Parisian Molded Luxury Bedroom",
+      style: "Neo-Classical",
+      image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=85",
+      sqft: "420 sq.ft",
+      budget: "₹7.2L - ₹10.5L",
+      description: "Sophisticated neoclassical master suite with full-wall wall mouldings, tufted beige bedframe, gold branch chandelier, and window seating bench.",
+      materials: ["Molded Polyurethane", "Tufted Velvet", "Brushed Brass", "Chevrons"]
+    },
+    {
+      id: "mbr-3",
+      title: "Botanical Wallpaper Pastel Sanctuary",
+      style: "Contemporary Warm",
+      image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=85",
+      sqft: "340 sq.ft",
+      budget: "₹4.8L - ₹6.8L",
+      description: "Airy retreat with hand-painted botanical wallpaper accent wall, blush pink upholstered bed, fluted white paneling, and warm brass sconces.",
+      materials: ["Textured Wallpaper", "Fluted Wall Panel", "Champagne Brass", "Bouclé"]
+    },
+    {
+      id: "mbr-4",
+      title: "Japandi Slatted Wood Master Suite",
+      style: "Japandi",
+      image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
+      sqft: "360 sq.ft",
+      budget: "₹5.2L - ₹7.5L",
+      description: "A calming oasis of natural acoustic slatted white oak paneling, floating platform king bed, integrated wireless charging, and Wabi-Sabi textures.",
+      materials: ["White Oak Slats", "Limewash Stucco", "Organic Cotton", "Ceramic Sconces"]
+    },
+    {
+      id: "mbr-5",
+      title: "Emerald Velvet Classical Master Bed",
+      style: "Neo-Classical",
+      image: "https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=1200&q=85",
+      sqft: "390 sq.ft",
+      budget: "₹6.0L - ₹8.5L",
+      description: "Opulent master chamber with jewel-toned emerald green headboard, gold-leaf picture frame moldings, and dark chevron engineered hardwood.",
+      materials: ["Emerald Velvet", "Gilded Brass Inlay", "Chevron Wood", "Crystal Pendants"]
+    },
+    {
+      id: "mbr-6",
+      title: "Minimalist Floating Platform Bedroom",
+      style: "Minimalist",
+      image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85",
+      sqft: "300 sq.ft",
+      budget: "₹4.2L - ₹6.0L",
+      description: "Clean architectural bedroom with continuous floor-to-ceiling smoked walnut headboard wall, indirect ambient lighting, and neutral linen textiles.",
+      materials: ["Smoked Walnut", "Indirect LED Channels", "Pure Linen", "Matte Black Trim"]
+    },
+    {
+      id: "mbr-7",
+      title: "Boho Chic Cane & Rattan Master Nook",
+      style: "Bohemian",
+      image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=85",
+      sqft: "320 sq.ft",
+      budget: "₹3.8L - ₹5.5L",
+      description: "Handcrafted natural cane headboard with layered jute rugs, raw plaster finish, floating bedside shelves, and potted olive tree.",
+      materials: ["Natural Cane", "Rattan", "Washed Linen", "Handmade Terracotta"]
+    },
+    {
+      id: "mbr-8",
+      title: "Luxury Penthouse Glass Balcony Suite",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=85",
+      sqft: "480 sq.ft",
+      budget: "₹8.5L - ₹12.0L",
+      description: "Double-aspect glass walls overlooking skyline, custom leather platform bed, motorized blackout acoustic drapes, and attached walk-in dressing zone.",
+      materials: ["Italian Leather", "Motorized Drapery", "Bronze Mirrors", "Statuario Slabs"]
+    },
+    {
+      id: "mbr-9",
+      title: "Hotel Suite Charcoal & Suede Bedroom",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85",
+      sqft: "350 sq.ft",
+      budget: "₹5.5L - ₹7.8L",
+      description: "5-star boutique hotel ambiance featuring oversized charcoal acoustic suede wall panels, warm drop pendant lamps, and an intimate lounge chair.",
+      materials: ["Acoustic Suede", "Smoked Mirrors", "Warm LED Halo", "Walnut Veneer"]
+    },
+    {
+      id: "mbr-10",
+      title: "Warm Travertine Headboard Suite",
+      style: "Warm Organic",
+      image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=85",
+      sqft: "370 sq.ft",
+      budget: "₹5.9L - ₹8.2L",
+      description: "Honed raw travertine stone slab backdrop accented by brass hairline trims, custom boucle bedframe, and ambient diffused ceiling cove lighting.",
+      materials: ["Honed Travertine", "Boucle Fabric", "Hairline Brass", "European White Oak"]
+    }
+  ],
+
+  "Modular Kitchen Designs": [
+    {
+      id: "kit-1",
+      title: "Geometric Faceted Backsplash Island Kitchen",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
+      sqft: "260 sq.ft",
+      budget: "₹6.0L - ₹8.5L",
+      description: "Signature kitchen with geometric starburst porcelain tiles, matte anthracite upper units, illuminated glass showcase shelves, and Calacatta quartz countertops.",
+      materials: ["Starburst Porcelain", "Matte Acrylic PU", "Fluted Glass", "Calacatta Quartz"]
+    },
+    {
+      id: "kit-2",
+      title: "Calacatta Gold Waterfall Island Kitchen",
+      style: "Minimalist",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
+      sqft: "280 sq.ft",
+      budget: "₹6.8L - ₹9.5L",
+      description: "Seamless handleless island kitchen with monolithic waterfall marble island, built-in German appliances, and concealed profile illumination.",
+      materials: ["Calacatta Stone", "Blum Servo-Drive", "FENIX NTM", "Smoked Glass"]
+    },
+    {
+      id: "kit-3",
+      title: "Scandinavian White Oak & White Kitchen",
+      style: "Scandinavian",
+      image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=1200&q=85",
+      sqft: "210 sq.ft",
+      budget: "₹4.5L - ₹6.5L",
+      description: "Warm Nordic layout combining natural white oak lower cabinetry, matte white anti-glare upper cabinets, and terrazzo stone countertop.",
+      materials: ["White Oak", "Anti-Fingerprint Matte", "Terrazzo Counter", "Hafele Pullouts"]
+    },
+    {
+      id: "kit-4",
+      title: "Parisian Charcoal & Brass Bistro Kitchen",
+      style: "Neo-Classical",
+      image: "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=85",
+      sqft: "230 sq.ft",
+      budget: "₹5.5L - ₹7.8L",
+      description: "Shaker profile cabinetry in rich charcoal gray, unlacquered brass cup handles, white subway backsplash, and integrated tall pantry unit.",
+      materials: ["Shaker PU Doors", "Solid Brass Hardware", "Beveled Subway Tile", "Black Quartz"]
+    },
+    {
+      id: "kit-5",
+      title: "Terracotta & Clay Artisanal Kitchen",
+      style: "Warm Organic",
+      image: "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1200&q=85",
+      sqft: "220 sq.ft",
+      budget: "₹4.8L - ₹6.9L",
+      description: "Zellige glazed green backsplash tiles, warm clay fluted cabinetry, butcher block oak prep island, and open shelving for ceramics.",
+      materials: ["Zellige Tiles", "Warm Clay Acrylic", "Solid Oak Butcher Block", "Aged Brass"]
+    },
+    {
+      id: "kit-6",
+      title: "High-Gloss Champagne Parallel Kitchen",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=1200&q=85",
+      sqft: "180 sq.ft",
+      budget: "₹4.2L - ₹6.0L",
+      description: "Sleek galley layout designed for optimal ergonomic work triangle, featuring champagne acrylic shutters and under-cabinet anti-glare LEDs.",
+      materials: ["High-Gloss Acrylic", "Aluminium Gola Profiles", "Granite Countertop", "Hettich InnoTech"]
+    },
+    {
+      id: "kit-7",
+      title: "Dark Emerald & Walnut Island Kitchen",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1502005229762-ee1b2da97e06?auto=format&fit=crop&w=1200&q=85",
+      sqft: "310 sq.ft",
+      budget: "₹7.5L - ₹11.0L",
+      description: "Statement kitchen pairing jewel emerald green lower drawers with fluted American walnut breakfast bar and brushed gold plumbing fixtures.",
+      materials: ["PU Matte Emerald", "American Walnut", "Brushed Gold Faucets", "Sintered Stone"]
+    },
+    {
+      id: "kit-8",
+      title: "Compact L-Shaped Smart Kitchen",
+      style: "Minimalist",
+      image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1200&q=85",
+      sqft: "150 sq.ft",
+      budget: "₹3.5L - ₹5.0L",
+      description: "Space-maximizing modular kitchen with corner magic pullout units, rolling shutter appliance garage, and seamless quartz sink integration.",
+      materials: ["BWP Marine Ply", "Anti-Scratch Laminate", "Magic Corner Unit", "Quartz Composite"]
+    },
+    {
+      id: "kit-9",
+      title: "Industrial Black Metal & Brick Kitchen",
+      style: "Industrial Chic",
+      image: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=85",
+      sqft: "270 sq.ft",
+      budget: "₹5.8L - ₹8.2L",
+      description: "Exposed whitewashed brick feature wall, matte black steel framework, hanging copper pots, and concrete-finish quartz island.",
+      materials: ["Black Steel Profiles", "Concrete Quartz", "Exposed Brick", "Smoked Glass"]
+    },
+    {
+      id: "kit-10",
+      title: "Two-Tone Italian Open Kitchen",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=85",
+      sqft: "290 sq.ft",
+      budget: "₹7.0L - ₹10.2L",
+      description: "High-end open kitchen merging with dining lounge, featuring integrated induction downdraft hob, concealed tall pantry, and pocket sliding doors.",
+      materials: ["Pocket Sliding Mechanism", "Downdraft Induction", "Fluted Oak Island", "Granite"]
+    }
+  ],
+
+  "Living Room Designs": [
+    {
+      id: "liv-1",
+      title: "Double-Height Travertine Villa Living",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85",
+      sqft: "580 sq.ft",
+      budget: "₹7.5L - ₹11.0L",
+      description: "Grand living pavilion with full-height bookmatched travertine marble, customized multi-layer cove ceiling, and bespoke low-profile sectional seating.",
+      materials: ["Italian Travertine", "Brushed Brass", "Warm Walnut", "Belgian Linen"]
+    },
+    {
+      id: "liv-2",
+      title: "Architectural Glass Villa Salon",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85",
+      sqft: "650 sq.ft",
+      budget: "₹8.8L - ₹13.0L",
+      description: "Floor-to-ceiling glass walls, integrated linear bio-ethanol hearth, sculptural curved boucle armchairs, and acoustic drop ceiling.",
+      materials: ["Architectural Glass", "Bio-Ethanol Marble Hearth", "Bouclé", "Fluted Walnut"]
+    },
+    {
+      id: "liv-3",
+      title: "Nordic Warm Minimalism Living Lounge",
+      style: "Minimalist",
+      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85",
+      sqft: "420 sq.ft",
+      budget: "₹5.0L - ₹7.5L",
+      description: "Micro-cement floor paired with cognac Italian leather sofa, solid oak coffee table, and gallery track spotlights.",
+      materials: ["Micro-Cement", "Cognac Leather", "White Oak", "Blackened Steel"]
+    },
+    {
+      id: "liv-4",
+      title: "Neo-Classical Parisian Drawing Room",
+      style: "Neo-Classical",
+      image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85",
+      sqft: "460 sq.ft",
+      budget: "₹6.8L - ₹9.5L",
+      description: "Symmetrical wall mouldings, French herringbone flooring, velvet Chesterfield lounge, and a majestic crystal chandelier.",
+      materials: ["Wall Mouldings", "Herringbone Oak", "Velvet Upholstery", "Crystal Chandelier"]
+    },
+    {
+      id: "liv-5",
+      title: "Japandi Acoustic Slatted Living Room",
+      style: "Japandi",
+      image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=85",
+      sqft: "380 sq.ft",
+      budget: "₹4.8L - ₹7.0L",
+      description: "Acoustic oak slatted TV wall with floating travertine bench, paper pendant lamps, and low-profile linen sofa.",
+      materials: ["Acoustic Wood Slats", "Travertine Bench", "Paper Lighting", "Linen"]
+    },
+    {
+      id: "liv-6",
+      title: "Modern Apartment Living & Dining",
+      style: "Contemporary Warm",
+      image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85",
+      sqft: "450 sq.ft",
+      budget: "₹5.5L - ₹8.0L",
+      description: "Open-plan contemporary layout featuring fluted partition screen, grey marble flooring, and modular L-shaped sofa.",
+      materials: ["Grey Marble", "Fluted Glass Partition", "Magnetic Track Lights", "Suede"]
+    },
+    {
+      id: "liv-7",
+      title: "Warm Earthy Terracotta Living Room",
+      style: "Warm Organic",
+      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=85",
+      sqft: "350 sq.ft",
+      budget: "₹4.5L - ₹6.5L",
+      description: "Warm beige limewash walls, terracotta accent cushions, solid teak coffee table, and oversized indoor fiddle-leaf fig.",
+      materials: ["Limewash Stucco", "Solid Teak", "Jute Rug", "Natural Linen"]
+    },
+    {
+      id: "liv-8",
+      title: "Industrial Loft with Brick Accent Wall",
+      style: "Industrial Chic",
+      image: "https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=1200&q=85",
+      sqft: "490 sq.ft",
+      budget: "₹5.8L - ₹8.4L",
+      description: "Exposed brick masonry sealed in matte lacquer, distressed leather armchairs, factory pendant fixtures, and steel room dividers.",
+      materials: ["Exposed Brick", "Black Iron Frame", "Distressed Leather", "Raw Timber"]
+    },
+    {
+      id: "liv-9",
+      title: "Monochrome Black & White Luxury Hall",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85",
+      sqft: "520 sq.ft",
+      budget: "₹7.2L - ₹10.0L",
+      description: "Striking high-contrast monochrome design with black marble wall cladding, white bouclé seating, and architectural spotlighting.",
+      materials: ["Black Marquina Marble", "White Boucle", "Matte Black Finishes", "LED Cove"]
+    },
+    {
+      id: "liv-10",
+      title: "Coastal Airy Sunlit Living Space",
+      style: "Contemporary Warm",
+      image: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=1200&q=85",
+      sqft: "390 sq.ft",
+      budget: "₹4.8L - ₹6.8L",
+      description: "Breezy coastal-inspired living room with bleached oak floors, sheer double-height drapes, and organic woven cane armchairs.",
+      materials: ["Bleached Oak", "Sheer Linen", "Woven Cane", "Matte White Trim"]
+    }
+  ],
+
+  "Wardrobe Designs": [
+    {
+      id: "wrd-1",
+      title: "Bronze Tinted Glass Walk-in Wardrobe",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1558997519-83ea9252def8?auto=format&fit=crop&w=1200&q=85",
+      sqft: "220 sq.ft",
+      budget: "₹5.2L - ₹8.0L",
+      description: "Boutique fashion wardrobe with bronze tinted glass shutters, slim aluminum frames, motion-sensor LED rails, and jewelry drawer island.",
+      materials: ["Bronze Fluted Glass", "Slim Aluminium Profiles", "Suede Lining", "LED Channels"]
+    },
+    {
+      id: "wrd-2",
+      title: "Minimalist Handleless White Wardrobe",
+      style: "Minimalist",
+      image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1200&q=85",
+      sqft: "180 sq.ft",
+      budget: "₹3.8L - ₹5.5L",
+      description: "Floor-to-ceiling seamless push-to-open lacquered shutters with integrated vanity mirror and concealed accessories pullout.",
+      materials: ["Lacquered PU", "Push-to-Open Hafele", "Smoked Vanity Mirror", "BWP Core"]
+    },
+    {
+      id: "wrd-3",
+      title: "Fluted Wood Slats Dressing Suite",
+      style: "Japandi",
+      image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85",
+      sqft: "200 sq.ft",
+      budget: "₹4.5L - ₹6.8L",
+      description: "Custom fluted white oak sliding doors, interior velvet watch organizers, pull-out trouser racks, and concealed shoe shelving.",
+      materials: ["Fluted White Oak", "Velvet Organizers", "Soft-Close Sliding Track", "LEDs"]
+    },
+    {
+      id: "wrd-4",
+      title: "Master Walk-in Closet with Island Counter",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1558997519-83ea9252def8?auto=format&fit=crop&w=1200&q=85",
+      sqft: "280 sq.ft",
+      budget: "₹7.0L - ₹10.5L",
+      description: "Double-sided walk-in wardrobe with quartz-topped accessory island, full-length illuminated mirror, and backlit shoe display.",
+      materials: ["Quartz Countertop", "Dark Smoked Oak", "Sensor Profiles", "Brass Pulls"]
+    },
+    {
+      id: "wrd-5",
+      title: "Parisian Classic Mirrored Shutter Wardrobe",
+      style: "Neo-Classical",
+      image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=85",
+      sqft: "190 sq.ft",
+      budget: "₹4.8L - ₹7.0L",
+      description: "Antique mirrored panels with delicate wooden lattice overlays, cast bronze handles, and dual-tier hanging spaces.",
+      materials: ["Antique Mirror", "Lattice Woodwork", "Cast Bronze", "BWR Marine Ply"]
+    },
+    {
+      id: "wrd-6",
+      title: "Industrial Metal & Smoked Timber Wardrobe",
+      style: "Industrial Chic",
+      image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85",
+      sqft: "170 sq.ft",
+      budget: "₹3.9L - ₹5.6L",
+      description: "Open-concept architectural dressing system with matte black steel framing and reclaimed wood shelf modules.",
+      materials: ["Black Steel Profiles", "Smoked Timber", "LED Downlights", "Hanging Rods"]
+    },
+    {
+      id: "wrd-7",
+      title: "Corner L-Shaped Space Saving Wardrobe",
+      style: "Minimalist",
+      image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85",
+      sqft: "160 sq.ft",
+      budget: "₹3.5L - ₹5.2L",
+      description: "Smart corner solution with 90-degree folding bi-fold doors, rotating carousel hanger, and loft storage for luggage.",
+      materials: ["Bi-Fold Hettich Wings", "Acrylic Gloss", "Corner Carousel", "LED Sensor"]
+    },
+    {
+      id: "wrd-8",
+      title: "Champagne Metallic Sliding Wardrobe",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=85",
+      sqft: "210 sq.ft",
+      budget: "₹4.8L - ₹7.2L",
+      description: "Heavy-duty top-hung sliding doors with champagne metallic lacquer finish and anti-jump damper mechanisms.",
+      materials: ["Metallic Lacquer", "Top-Hung Sliding Track", "Integrated Vanity", "Ply Core"]
+    },
+    {
+      id: "wrd-9",
+      title: "Open Boutique Dressing Lounge",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1200&q=85",
+      sqft: "250 sq.ft",
+      budget: "₹6.2L - ₹9.0L",
+      description: "Walk-through open dressing suite featuring upholstered velvet ottoman, backlit shoe shelves, and integrated makeup vanity.",
+      materials: ["Velvet Ottoman", "Fluted Glass", "Warm Backlit Panels", "Solid Brass"]
+    },
+    {
+      id: "wrd-10",
+      title: "High-Gloss Two-Tone Modern Wardrobe",
+      style: "Contemporary Warm",
+      image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85",
+      sqft: "175 sq.ft",
+      budget: "₹3.9L - ₹5.8L",
+      description: "Contrasting cream gloss and walnut grain shutters with long edge-mounted profile handles and interior soft-close pullouts.",
+      materials: ["Cream High-Gloss", "Walnut Grain", "Edge Profile Handles", "Marine Plywood"]
+    }
+  ],
+
+  "Bathroom Designs": [
+    {
+      id: "bth-1",
+      title: "Carrara Marble Freestanding Tub Spa",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=85",
+      sqft: "180 sq.ft",
+      budget: "₹4.5L - ₹6.8L",
+      description: "Spa sanctuary featuring a standalone resin bathtub, bookmatched Carrara porcelain walls, and thermo-controlled Grohe rain shower.",
+      materials: ["Carrara Porcelain", "Champagne Gold Fixtures", "Fluted Glass Partition", "Teak"]
+    },
+    {
+      id: "bth-2",
+      title: "Charcoal Slate & Matte Gold Powder Room",
+      style: "Minimalist",
+      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=85",
+      sqft: "110 sq.ft",
+      budget: "₹2.8L - ₹4.2L",
+      description: "Moody powder room with monolith carved black granite pedestal basin, fluted charcoal tile walls, and warm backlit halo mirror.",
+      materials: ["Black Granite Basin", "Fluted Ceramic Tile", "Backlit Halo Mirror", "Matte Gold"]
+    },
+    {
+      id: "bth-3",
+      title: "Japandi Hinoki Wood Wet Room",
+      style: "Japandi",
+      image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85",
+      sqft: "150 sq.ft",
+      budget: "₹3.8L - ₹5.5L",
+      description: "Therapeutic bathroom with wood-look textured tiles, pebble floor accents, wall-hung minimalist toilet, and concealed niche lighting.",
+      materials: ["Wood-Look Porcelain", "River Pebbles", "Concealed Geberit Cistern", "Frosted Glass"]
+    },
+    {
+      id: "bth-4",
+      title: "Double Vanity Master Bath Suite",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85",
+      sqft: "210 sq.ft",
+      budget: "₹5.5L - ₹8.0L",
+      description: "Expansive master bathroom with dual under-mount sinks, Calacatta quartz vanity, anti-fog smart touch LED mirrors, and private water closet.",
+      materials: ["Calacatta Quartz", "Dual Sinks", "Touch Smart Mirrors", "Brushed Brass Faucets"]
+    },
+    {
+      id: "bth-5",
+      title: "Industrial Micro-Cement Walk-In Shower",
+      style: "Industrial Chic",
+      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=85",
+      sqft: "130 sq.ft",
+      budget: "₹3.2L - ₹4.8L",
+      description: "Joint-free waterproof micro-topping across walls and floor with matte black crittall-style glass shower partition.",
+      materials: ["Waterproof Micro-Cement", "Black Crittall Glass", "Matte Black Shower", "Teak Bench"]
+    },
+    {
+      id: "bth-6",
+      title: "Terrazzo Tile Contemporary Bathroom",
+      style: "Contemporary Warm",
+      image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=85",
+      sqft: "140 sq.ft",
+      budget: "₹3.5L - ₹5.0L",
+      description: "Playful yet sophisticated terrazzo wall and floor tiling with pastel blush basin and brushed copper fixtures.",
+      materials: ["Custom Terrazzo", "Blush Ceramic Basin", "Brushed Copper", "Oak Vanity"]
+    },
+    {
+      id: "bth-7",
+      title: "Neo-Classical Marble & Brass Bathroom",
+      style: "Neo-Classical",
+      image: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1200&q=85",
+      sqft: "190 sq.ft",
+      budget: "₹5.2L - ₹7.5L",
+      description: "Statuario marble floor and walls, free-standing clawfoot roll-top bath, traditional exposed thermostatic valve, and crystal sconces.",
+      materials: ["Statuario Marble", "Clawfoot Tub", "Traditional Brass", "Beveled Glass"]
+    },
+    {
+      id: "bth-8",
+      title: "Compact Luxury Apartment Bathroom",
+      style: "Minimalist",
+      image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85",
+      sqft: "85 sq.ft",
+      budget: "₹2.2L - ₹3.4L",
+      description: "Efficient small space design with floating wall-hung vanity, recessed mirrored medicine cabinet, and sliding frameless shower glass.",
+      materials: ["Wall-Hung Vanity", "Recessed Mirror Cabinet", "Frameless Glass", "Linear Drain"]
+    },
+    {
+      id: "bth-9",
+      title: "Warm Travertine Natural Stone Bath",
+      style: "Warm Organic",
+      image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1200&q=85",
+      sqft: "170 sq.ft",
+      budget: "₹4.6L - ₹6.8L",
+      description: "Earthy textured travertine slabs, carved stone block basin, aged bronze wall spout, and natural overhead skylight.",
+      materials: ["Natural Travertine", "Carved Stone Basin", "Aged Bronze", "Skylight Glass"]
+    },
+    {
+      id: "bth-10",
+      title: "Fluted Tile Rain Shower Suite",
+      style: "Modern Luxury",
+      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=85",
+      sqft: "160 sq.ft",
+      budget: "₹4.0L - ₹6.0L",
+      description: "Vertical fluted sage green tiles inside shower zone, ceiling-recessed chromotherapy rain shower, and frameless bronze glass.",
+      materials: ["Fluted Sage Tiles", "Chromotherapy Shower", "Bronze Glass", "Floating Oak Vanity"]
+    }
+  ]
+};
+
+// Fallback helper to provide 10+ designs for any category in DESIGN_IDEAS_LIST
+export function getCategoryDesigns(categoryName) {
+  if (CATEGORY_DESIGNS_DB[categoryName]) {
+    return CATEGORY_DESIGNS_DB[categoryName];
   }
-];
 
-// Interactive Before / After Renovation Projects
-export const BEFORE_AFTER_PROJECTS = [
-  {
-    id: "ba-1",
-    title: "The Amaravati Penthouse Living Transformation",
-    category: "Living Room Renovation",
-    location: "Amaravati Road, Guntur",
-    duration: "28 Days Turnkey Execution",
-    beforeImage: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80", // Raw, barren, bare concrete space
-    afterImage: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85", // Finished warm luxury interior
-    beforeLabel: "Before (Raw Shell)",
-    afterLabel: "After (Icon Interiors)",
-    description: "Transformed an unfinished 600 sq.ft bare concrete shell into an editorial luxury living room with book-matched Italian marble, customized cove ceiling, and tailored acoustic wall paneling."
-  },
-  {
-    id: "ba-2",
-    title: "Compact 90s Layout to Sleek Modular Island Kitchen",
-    category: "Complete Kitchen Overhaul",
-    location: "Lakshmipuram, Guntur",
-    duration: "18 Days Turnkey Execution",
-    beforeImage: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80", // Dated, empty unfinished space
-    afterImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85", // Modern luxury modular kitchen
-    beforeLabel: "Before (Dated Layout)",
-    afterLabel: "After (Modular Italian Design)",
-    description: "Demolished restrictive non-loadbearing partitions to install an open-concept acrylic island kitchen with Blum tandem boxes, Hafele pullouts, and Calacatta quartz countertops."
-  },
-  {
-    id: "ba-3",
-    title: "Drab Concrete Room to Japandi Master Sanctuary",
-    category: "Master Bedroom Suite",
-    location: "Brodipet, Guntur",
-    duration: "21 Days Turnkey Execution",
-    beforeImage: "https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=1200&q=80", // Plain empty bedroom
-    afterImage: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=85", // Japandi bedroom
-    beforeLabel: "Before (Empty Room)",
-    afterLabel: "After (Japandi Master Suite)",
-    description: "Added bespoke natural white oak fluted paneling, floating platform bed with indirect nightlights, concealed walk-in wardrobe entryway, and custom Roman blinds."
+  // Map other categories intelligently or generate 10 high-resolution designs
+  const lower = (categoryName || "").toLowerCase();
+
+  let baseType = "Living Room Designs";
+  if (lower.includes("bed") || lower.includes("guest") || lower.includes("kids")) {
+    baseType = "Master Bedroom Designs";
+  } else if (lower.includes("kitchen") || lower.includes("sink")) {
+    baseType = "Modular Kitchen Designs";
+  } else if (lower.includes("wardrobe") || lower.includes("space saving") || lower.includes("door")) {
+    baseType = "Wardrobe Designs";
+  } else if (lower.includes("bath") || lower.includes("tile")) {
+    baseType = "Bathroom Designs";
   }
-];
 
-// Cost Estimation Matrix
+  const baseList = CATEGORY_DESIGNS_DB[baseType] || CATEGORY_DESIGNS_DB["Master Bedroom Designs"];
+
+  return baseList.map((item, idx) => ({
+    ...item,
+    id: `${categoryName.toLowerCase().replace(/[^a-z0-9]/g, "")}-${idx + 1}`,
+    title: `${item.title.split(" ")[0]} ${categoryName.replace(/designs?/gi, "").trim()} Concept ${idx + 1}`,
+    description: `Bespoke ${categoryName} curated with tailored finishes, premium materials, and precision architectural craftsmanship.`
+  }));
+}
+
+// Category Information description dictionary for Image 2 header
+export const CATEGORY_INFO = {
+  "Master Bedroom Designs": {
+    heading: "Bedroom Interior Designs",
+    tagline: "Thinking of Redoing Your Master Bedroom? Let's Make It Personal.",
+    description: "Your master bedroom should feel like you — calm, comfortable, and effortlessly stylish. At ICON INTERIORS, we create bespoke bedroom interiors that blend plush upholstery, acoustic wall paneling, smart wardrobe integration, and restful lighting schemes tailored for rejuvenating sleep.",
+    trendingTitle: "Top Trending Bedroom Designs",
+    trendingSub: "Design ideas chosen by homeowners in October, 2026"
+  },
+  "Modular Kitchen Designs": {
+    heading: "Modular Kitchen Interior Designs",
+    tagline: "High-Efficiency Culinary Spaces Designed for Indian Cooking.",
+    description: "Experience German precision joinery, boiling water-proof BWP 710 marine plywood, and Blum soft-close fittings. From Calacatta island kitchens to parallel acrylic modular layouts, we craft cooking sanctuaries that withstand decades of daily use.",
+    trendingTitle: "Top Trending Modular Kitchens",
+    trendingSub: "Ergonomic modular layouts loved by families in October, 2026"
+  },
+  "Living Room Designs": {
+    heading: "Living Room Interior Designs",
+    tagline: "Crafting Pavilions for Meaningful Family Gatherings.",
+    description: "The living room is the architectural heart of your home. We balance book-matched Italian stone, fluted timber panelling, concealed cove lighting, and tailored sofa arrangements to craft spaces that exude grandeur and comfort.",
+    trendingTitle: "Top Trending Living Spaces",
+    trendingSub: "Grand living room concepts chosen by homeowners in October, 2026"
+  },
+  "Wardrobe Designs": {
+    heading: "Wardrobe & Walk-In Dressing Designs",
+    tagline: "Boutique Walk-In Closets & Space-Saving Wardrobes.",
+    description: "Maximized storage meets Italian fashion house elegance. Discover bronze tinted glass wardrobes with integrated sensor profiles, velvet accessory drawers, island counters, and floor-to-ceiling sliding mechanisms.",
+    trendingTitle: "Top Trending Wardrobe Designs",
+    trendingSub: "Storage solutions chosen by homeowners in October, 2026"
+  },
+  "Bathroom Designs": {
+    heading: "Luxury Bathroom & Spa Designs",
+    tagline: "Private Wellness Retreats with Marble & Water Therapy.",
+    description: "Transform daily routines into spa rituals. Featuring freestanding stone soaking tubs, floor-to-ceiling Carrara porcelain, thermo-controlled Grohe rain showers, and anti-fog smart touch LED mirrors.",
+    trendingTitle: "Top Trending Bathroom Designs",
+    trendingSub: "Spa bathroom designs chosen by homeowners in October, 2026"
+  }
+};
+
+// Flattened list of designs for Favorites and global discovery
+export const HOME_DESIGNS = Object.entries(CATEGORY_DESIGNS_DB).flatMap(([category, designs]) =>
+  designs.map((d) => ({
+    ...d,
+    roomType: category.replace(/designs?/gi, "").trim()
+  }))
+);
+
+// Turnkey estimation packages for CostEstimator
 export const ESTIMATION_PACKAGES = [
   {
     id: "essential",
     name: "Essential Luxury",
-    tagline: "Smart Elegance for Everyday Living",
-    ratePerSqFt: 1250,
-    warranty: "5-Year Structural Warranty",
-    timeline: "35 Working Days",
+    pricePerSqft: 1450,
+    badge: "Budget Conscious",
+    description: "High-grade commercial BWR plywood with 1mm merino laminate, Hafele hardware, and warm LED accenting.",
     features: [
-      "Commercial grade BWR Marine Plywood (IS 710)",
-      "Premium 1mm Anti-fingerprint Matte Laminates",
-      "Soft-close Hettich / Ebco German fittings",
-      "Standard false ceiling with Philips COB LED warm lighting",
-      "Standard Asian Paints Royale luxury emulsion",
-      "Modular kitchen with quartz stone countertop"
+      "IS 303 Commercial BWR Plywood",
+      "1mm High-Gloss & Suede Laminates",
+      "Hafele Soft-Close Hinges",
+      "Modular Kitchen with Quartz Counter",
+      "Concealed LED Strip Lighting"
     ]
   },
   {
     id: "signature",
-    name: "Signature Elegance",
-    tagline: "Our Most Popular Bespoke Grade",
-    ratePerSqFt: 1850,
-    popular: true,
-    warranty: "10-Year Comprehensive Warranty",
-    timeline: "45 Working Days",
+    name: "Signature Turnkey",
+    pricePerSqft: 1950,
+    badge: "Most Popular",
+    description: "Boiling Water Proof BWP 710 marine plywood, acrylic PU finishes, Blum soft-close fittings, and fluted panel accents.",
     features: [
-      "BWP Marine Grade Plywood + HDHMR waterproof boards",
-      "High-gloss Acrylic & PU Paint finish cabinetry",
-      "Blum / Hafele soft-close tandem drawers & lifts",
-      "Architectural magnetic track lighting & cove illumination",
-      "Fluted charcoal & wooden louvre wall accents",
-      "Italian design modular kitchen with built-in appliance tall units",
-      "Bespoke upholstered headboards & vanity dressing zones"
+      "IS 710 BWP Marine Grade Plywood",
+      "Anti-Fingerprint Acrylic & Fluted Panels",
+      "Blum German Soft-Close Tandem Boxes",
+      "Master Suite Fluted Acoustic Headboard",
+      "Italian Profile Glass Wardrobes",
+      "10-Year Comprehensive Warranty"
     ]
   },
   {
-    id: "ultra",
-    name: "Ultra-Luxury Bespoke",
-    tagline: "Uncompromising Architectural Grandeur",
-    ratePerSqFt: 2750,
-    warranty: "15-Year Lifetime Guarantee",
-    timeline: "60 Working Days",
+    id: "couture",
+    name: "Haute Architectural",
+    pricePerSqft: 2850,
+    badge: "Ultra Luxury",
+    description: "Imported Italian marble flooring, smoked European oak veneer, Fenix NTM nano-tech laminates, and smart home automation integration.",
     features: [
-      "Imported Italian bookmatched marble flooring & wall cladding",
-      "Real wood veneer with bespoke Italian polyester PU polish",
-      "Smart motorized home automation (lighting, blinds & HVAC)",
-      "Fluted tinted glass wardrobes with integrated LED sensors",
-      "Monolith quartz island kitchen with hidden breakfast bar",
-      "Custom Italian imported leather & bouclé furnishings",
-      "Dedicated senior architect supervision & 3D VR walkthrough"
+      "Bespoke Italian Statuario / Travertine Stone",
+      "Smoked Natural Oak & Walnut Veneers",
+      "Blum Servo-Drive Electronic Push-to-Open",
+      "Full Smart Lighting Automation (Lutron/DALI)",
+      "Walk-In Boutique Wardrobe Island",
+      "Lifetime Service & Handcrafted Custom Furniture"
     ]
   }
 ];
 
-export const CLIENT_TESTIMONIALS = [
-  {
-    id: "t-1",
-    name: "Dr. K. Srinivas Rao & Smt. Lakshmi",
-    location: "Amaravati Road, Guntur",
-    project: "4 BHK Luxury Penthouse (3,400 sq.ft)",
-    rating: 5,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-    quote: "ICON INTERIORS transformed our penthouse into something you only see in Architectural Digest. The attention to wood fluting, lighting angles, and on-time 45-day delivery blew us away!"
-  },
-  {
-    id: "t-2",
-    name: "Rajesh Varma & Family",
-    location: "Benz Circle, Vijayawada",
-    project: "Complete Villa Interiors (4,200 sq.ft)",
-    rating: 5,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
-    quote: "From 3D renders to exact material matching, the transparency was remarkable. Their modular kitchen and living room backlit onyx wall are the talk of everyone who visits our home."
-  },
-  {
-    id: "t-3",
-    name: "Pooja & Ananth Reddy",
-    location: "Lakshmipuram, Guntur",
-    project: "3 BHK Contemporary Flat (1,850 sq.ft)",
-    rating: 5,
-    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
-    quote: "Being working professionals, we had zero time for site coordination. ICON INTERIORS handled everything turnkey without a single headache. Truly top tier craftsmanship."
-  }
-];
-
-// Instant AI Presets for Gemini Demo Mode
-export const AI_PRESETS = [
-  {
-    room: "Living Room",
-    style: "Japandi",
-    prompt: "Warm Japandi living space with fluted white oak walls, travertine coffee table, and soft diffused cove lighting",
-    concept: "Komorebi Serenity Lounge",
-    summary: "A harmonious marriage of Japanese minimalism and Scandinavian warmth, prioritizing natural textures, uncluttered lines, and warm 3000K ambient illumination.",
-    palette: [
-      { name: "Raw Travertine", hex: "#E8E0D2" },
-      { name: "Fluted White Oak", hex: "#B89973" },
-      { name: "Wabi Charcoal", hex: "#2E2A27" },
-      { name: "Oatmeal Linen", hex: "#F3ECE1" },
-      { name: "Olive Leaf", hex: "#636856" }
-    ],
-    materials: [
-      "Natural White Oak fluted slats",
-      "Hand-applied lime wash plaster",
-      "Textured boucle and Belgian linen upholstery",
-      "Brushed aged brass accents"
-    ],
-    lighting: "Concealed 2700K LED ceiling coves, ceramic paper pendants, and low-level floor wash lights.",
-    budgetRange: "₹4.5L - ₹6.5L",
-    tips: "Keep furniture below eye level to maximize the feeling of vertical space and airy tranquility."
-  },
-  {
-    room: "Modular Kitchen",
-    style: "Modern Luxury",
-    prompt: "High-end Italian kitchen with Calacatta gold island, matte anthracite cabinets, and smart LED pantry",
-    concept: "Milano Culinary Atelier",
-    summary: "Sleek architectural kitchen prioritizing hidden functionality, seamless anti-fingerprint surfaces, and an imposing monolithic marble island.",
-    palette: [
-      { name: "Calacatta Gold", hex: "#F9F6F0" },
-      { name: "Anthracite Matte", hex: "#1C1D1E" },
-      { name: "Champagne Brass", hex: "#CCA96A" },
-      { name: "Smoked Bronze Glass", hex: "#56483B" },
-      { name: "Concrete Greige", hex: "#A8A29A" }
-    ],
-    materials: [
-      "Seamless Calacatta Gold sintered stone island",
-      "Super-matte FENIX NTM cabinetry",
-      "Bronze tinted glass upper cabinets with interior profile LEDs",
-      "Built-in induction with downdraft ventilation"
-    ],
-    lighting: "Magnetic architectural track lights, under-cabinet task illumination (4000K), and island pendant bar.",
-    budgetRange: "₹6.0L - ₹9.5L",
-    tips: "Plan a dedicated appliance garage with pocket sliding doors to keep counters completely free of small gadgets."
-  },
-  {
-    room: "Master Bedroom",
-    style: "Neo-Classical",
-    prompt: "Royal master suite with emerald velvet wall padding, brass moldings, and champagne lighting",
-    concept: "Palais Royal Sanctuary",
-    summary: "Timeless Parisian-inspired suite bringing symmetrical wall moldings, opulent jewel velvet textures, and bespoke warm crystal illumination.",
-    palette: [
-      { name: "Imperial Emerald", hex: "#19352A" },
-      { name: "Burnished Gold", hex: "#CEAB61" },
-      { name: "Warm Alabaster", hex: "#F5EFE6" },
-      { name: "Smoked Walnut", hex: "#3B2F25" },
-      { name: "Champagne Sheen", hex: "#DFD2BE" }
-    ],
-    materials: [
-      "Floor-to-ceiling emerald velvet acoustic headboard paneling",
-      "Polyurethane classical wall trim and moldings",
-      "Chevron smoked oak engineered wood floor",
-      "Brushed brass hardware and crystal pendants"
-    ],
-    lighting: "Dual-circuit chandelier, dimmable bedside drop pendants, and indirect baseboard lighting.",
-    budgetRange: "₹5.5L - ₹8.0L",
-    tips: "Use blackout layered velvet drapes combined with sheer organza curtains to evoke high-end 5-star hotel luxury."
-  }
-];

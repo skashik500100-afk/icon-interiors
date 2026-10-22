@@ -172,7 +172,7 @@ export async function searchUnsplashDesigns(query, page = 1) {
     }
 
     const data = await response.json();
-    return data.results.map((photo, index) => ({
+    return data.results.map((photo) => ({
       id: `unsplash-${photo.id}`,
       title: photo.description || photo.alt_description || `Bespoke ${query} Design`,
       roomType: query.includes("Kitchen") ? "Modular Kitchen" : query.includes("Bed") ? "Master Bedroom" : "Living Room",
