@@ -1,0 +1,125 @@
+:root {
+  /* Luxury Dark Palette */
+  --bg-deep: #0b0a08;
+  --bg-main: #12100d;
+  --bg-surface: #181512;
+  --bg-card: #1f1b16;
+  --bg-card-hover: #27221c;
+  --bg-glass: rgba(18, 16, 13, 0.78);
+  --bg-glass-card: rgba(28, 24, 19, 0.65);
+
+  /* Light accents for contrast sections */
+  --bg-light: #f5f0e6;
+  --bg-light-surface: #ede6d8;
+  --bg-light-card: #ffffff;
+  --text-dark: #1e1a14;
+  --text-dark-muted: #6b6357;
+
+  /* Typography Colors */
+  --text-primary: #f8f4ed;
+  --text-secondary: #cec3b2;
+  --text-muted: #8e8372;
+  --text-gold: #d4b26f;
+
+  /* Gold & Warm Bronze Accents */
+  --gold-primary: #c9a45c;
+  --gold-light: #e2c78a;
+  --gold-dark: #967434;
+  --gold-glow: rgba(201, 164, 92, 0.28);
+  --gold-subtle: rgba(201, 164, 92, 0.12);
+  --gold-border: rgba(201, 164, 92, 0.35);
+
+  /* Borders & Dividers */
+  --border-subtle: #2b251d;
+  --border-light: rgba(255, 255, 255, 0.08);
+
+  /* Fonts */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Transitions */
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Gold Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: #3a3227;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}
+
+/* Selection */
+::selection {
+  background: var(--gold-primary);
+  color: #0b0a08;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-smooth);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: var(--font-sans);
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: var(--bg-glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Gold Gradient Text */
+.gold-text-gradient {
+  background: linear-gradient(135deg, #f3dfb2 0%, #c9a45c 50%, #9e7732 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
