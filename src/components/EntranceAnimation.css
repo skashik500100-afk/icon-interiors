@@ -1,0 +1,1281 @@
+/* ==========================================================================
+   ICON INTERIORS — GRAND LUXURY ENTRANCE ANIMATION
+   Visual Aesthetic: Dark Walnut, Champagne Gold, Warm Ambient Lighting,
+   Realistic 3D Architectural Double Doors Opening into the Showroom
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Root Overlay & Cinematic Backdrop
+   -------------------------------------------------------------------------- */
+.entrance-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: transparent;
+  color: #f8f4ed;
+  isolation: isolate;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  /* Overall fade-out after doors swing open (3.2s to 3.9s) */
+  animation: entrance-overlay-fadeout 0.8s cubic-bezier(0.16, 1, 0.3, 1) 3.2s forwards;
+}
+
+.entrance-overlay--dismissing {
+  animation: entrance-overlay-instant-dismiss 0.45s ease-out forwards !important;
+}
+
+/* Cinematic Studio Lighting Backdrop */
+.entrance-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+  background-color: #080705;
+  /* Dark backdrop dissolves as doors unlock and part, revealing the real homepage behind */
+  animation: backdrop-reveal-homepage 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.05s forwards;
+}
+
+/* Overhead Showroom Downlight Beams */
+.entrance-spotlight {
+  position: absolute;
+  top: -10%;
+  pointer-events: none;
+  transform-origin: top center;
+  mix-blend-mode: screen;
+  filter: blur(24px);
+}
+
+.entrance-spotlight--center {
+  left: 50%;
+  width: min(70vw, 750px);
+  height: 95vh;
+  background: radial-gradient(ellipse at 50% 0%, rgba(245, 218, 155, 0.32) 0%, rgba(212, 178, 111, 0.12) 42%, transparent 72%);
+  transform: translateX(-50%);
+  animation: spotlight-pulse 3.6s ease-in-out infinite alternate;
+}
+
+.entrance-spotlight--left {
+  left: 15%;
+  width: min(45vw, 480px);
+  height: 80vh;
+  background: radial-gradient(ellipse at 50% 0%, rgba(226, 199, 138, 0.16) 0%, transparent 68%);
+  transform: rotate(-8deg);
+}
+
+.entrance-spotlight--right {
+  right: 15%;
+  width: min(45vw, 480px);
+  height: 80vh;
+  background: radial-gradient(ellipse at 50% 0%, rgba(226, 199, 138, 0.16) 0%, transparent 68%);
+  transform: rotate(8deg);
+}
+
+/* Ambient Dust / Golden Micro-Shimmer */
+.entrance-ambient-shimmer {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(245, 222, 168, 0.08) 0%, transparent 55%),
+    radial-gradient(circle at 30% 65%, rgba(201, 164, 92, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 70% 35%, rgba(201, 164, 92, 0.05) 0%, transparent 40%);
+  animation: ambient-drift 4s ease-in-out infinite alternate;
+}
+
+/* Deep Studio Vignette */
+.entrance-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(6, 5, 4, 0.72) 80%, #060504 100%),
+    linear-gradient(180deg, rgba(8, 7, 5, 0.85) 0%, transparent 18%, transparent 82%, rgba(8, 7, 5, 0.95) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   2. Grand Architectural Portal Structure (Casing, Architrave & Threshold)
+   -------------------------------------------------------------------------- */
+.entrance-portal-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Top Architrave / Lintel with Cove LED Warm Glow */
+.portal-architrave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: clamp(38px, 6vh, 64px);
+  background: linear-gradient(180deg, #100b07 0%, #1e120a 70%, #120a05 100%);
+  border-bottom: 2px solid #2d1c10;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.architrave-cove-light {
+  position: absolute;
+  bottom: -4px;
+  left: 5%;
+  right: 5%;
+  height: 6px;
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 222, 168, 0.75) 25%, rgba(255, 243, 204, 0.95) 50%, rgba(245, 222, 168, 0.75) 75%, transparent 100%);
+  filter: blur(4px);
+  box-shadow: 0 4px 18px rgba(230, 194, 122, 0.65);
+}
+
+.architrave-gold-reveal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(169, 133, 67, 0.3) 0%, #e8ca88 30%, #fff2cf 50%, #e8ca88 70%, rgba(169, 133, 67, 0.3) 100%);
+}
+
+.architrave-frieze-bar {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.architrave-gem {
+  width: 7px;
+  height: 7px;
+  background: #ecd498;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(236, 212, 152, 0.85);
+}
+
+/* Side Portal Jambs */
+.portal-jamb {
+  position: absolute;
+  top: clamp(38px, 6vh, 64px);
+  bottom: clamp(24px, 4vh, 42px);
+  width: clamp(14px, 2.5vw, 36px);
+  background: linear-gradient(90deg, #120a06 0%, #1f130b 60%, #140b06 100%);
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.9);
+}
+
+.portal-jamb--left {
+  left: 0;
+  border-right: 1px solid #331f12;
+}
+
+.portal-jamb--right {
+  right: 0;
+  border-left: 1px solid #331f12;
+}
+
+.jamb-gold-reveal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: linear-gradient(180deg, #e8ca88 0%, rgba(169, 133, 67, 0.4) 50%, #e8ca88 100%);
+}
+
+.portal-jamb--left .jamb-gold-reveal {
+  right: 0;
+}
+
+.portal-jamb--right .jamb-gold-reveal {
+  left: 0;
+}
+
+/* Bottom Marble / Bronze Threshold Sill */
+.portal-threshold {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: clamp(24px, 4vh, 42px);
+  background: linear-gradient(180deg, #181410 0%, #100d0a 70%, #0a0806 100%);
+  border-top: 1.5px solid #3d2a1a;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+}
+
+.threshold-brass-inlay {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(169, 133, 67, 0.4) 0%, #e8ca88 35%, #fff5d9 50%, #e8ca88 65%, rgba(169, 133, 67, 0.4) 100%);
+  box-shadow: 0 0 10px rgba(232, 202, 136, 0.5);
+}
+
+.threshold-reflection {
+  flex: 1;
+  background: radial-gradient(ellipse at 50% 0%, rgba(245, 218, 155, 0.15) 0%, transparent 70%);
+}
+
+/* --------------------------------------------------------------------------
+   3. Showroom Volumetric Light Bloom (Streams through parting doors)
+   -------------------------------------------------------------------------- */
+.portal-showroom-aperture {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Initial subtle golden light slit along the closed door seam */
+.portal-light-center-beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(255, 246, 214, 0.9) 0%, rgba(245, 218, 155, 1) 35%, rgba(255, 246, 214, 0.9) 70%, rgba(201, 164, 92, 0.7) 100%);
+  box-shadow:
+    0 0 8px 3px rgba(245, 218, 155, 0.8),
+    0 0 24px 8px rgba(226, 185, 107, 0.55),
+    0 0 60px 18px rgba(201, 164, 92, 0.35);
+  animation: seam-glow-pulse 2s ease-in-out infinite alternate;
+}
+
+/* Warm showroom volumetric bloom that bursts through as doors unlock & open */
+.portal-light-bloom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80vw;
+  height: 90vh;
+  transform: translate(-50%, -50%) scaleX(0.04);
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 248, 224, 0.65) 0%, rgba(245, 218, 155, 0.38) 32%, rgba(201, 164, 92, 0.18) 58%, transparent 75%);
+  filter: blur(28px);
+  opacity: 0;
+  animation: light-bloom-burst 2.8s cubic-bezier(0.2, 0.8, 0.3, 1) 0.95s forwards;
+}
+
+/* --------------------------------------------------------------------------
+   4. 3D Perspective Stage & Massive Double Doors
+   -------------------------------------------------------------------------- */
+.entrance-doors-stage {
+  position: absolute;
+  inset: clamp(38px, 6vh, 64px) clamp(14px, 2.5vw, 36px) clamp(24px, 4vh, 42px);
+  z-index: 3;
+  display: flex;
+  perspective: 1800px;
+  perspective-origin: center 50%;
+  transform-style: preserve-3d;
+}
+
+/* Single Massive Luxury Door (50% Width) */
+.luxury-door {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Left Door — Opens Outward with Heavy Architectural Physics */
+.luxury-door--left {
+  transform-origin: left center;
+  animation: door-swing-open-left 2.3s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
+  box-shadow: 18px 0 35px rgba(0, 0, 0, 0.85);
+}
+
+/* Right Door — Opens Outward in Symmetrical Harmony */
+.luxury-door--right {
+  transform-origin: right center;
+  animation: door-swing-open-right 2.3s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
+  box-shadow: -18px 0 35px rgba(0, 0, 0, 0.85);
+}
+
+/* Door Face (Solid Dark Walnut Slab) */
+.luxury-door__face {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 230, 180, 0.08) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.55) 100%),
+    linear-gradient(90deg, #150d07 0%, #24160d 20%, #351f13 45%, #2a190e 70%, #1f130a 85%, #140c06 100%);
+  border: 1px solid #2a190f;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3D Timber Edge Thickness (visible as doors swing into 3D space) */
+.luxury-door__edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  background: linear-gradient(180deg, #130a05 0%, #1e1109 50%, #0d0704 100%);
+  transform-style: preserve-3d;
+  border: 1px solid #23140a;
+}
+
+.luxury-door__edge--left {
+  right: 0;
+  transform-origin: right center;
+  transform: rotateY(-90deg);
+}
+
+.luxury-door__edge--right {
+  left: 0;
+  transform-origin: left center;
+  transform: rotateY(90deg);
+}
+
+.door-edge-grain {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, transparent 0 4px, rgba(0, 0, 0, 0.35) 5px 8px);
+}
+
+.door-edge-latch {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  right: 4px;
+  height: 54px;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #cca558 0%, #ecd498 50%, #8c6c2b 100%);
+  border-radius: 3px;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Realistic Dark Walnut Woodgrain Striations */
+.door-woodgrain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 18px,
+      rgba(70, 40, 20, 0.35) 19px,
+      transparent 20px,
+      transparent 38px,
+      rgba(22, 12, 6, 0.5) 39px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 35px,
+      rgba(0, 0, 0, 0.15) 36px,
+      transparent 38px
+    );
+  mix-blend-mode: overlay;
+}
+
+/* Door Shading & Dynamic Angular Sheen */
+.door-lighting-shading {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(245, 222, 168, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, transparent 65%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+/* Architectural Hinges on Outer Edges */
+.door-hinges {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.luxury-door--left .door-hinges {
+  left: 2px;
+}
+
+.luxury-door--right .door-hinges {
+  right: 2px;
+}
+
+.door-hinge {
+  position: absolute;
+  width: 10px;
+  height: 48px;
+  background: linear-gradient(90deg, #785a21 0%, #ecd498 45%, #fff2cf 60%, #8c6c2b 100%);
+  border-radius: 2px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+}
+
+.door-hinge--top { top: 12%; }
+.door-hinge--middle { top: 50%; transform: translateY(-50%); }
+.door-hinge--bottom { bottom: 12%; }
+
+.hinge-pin {
+  position: absolute;
+  top: -3px;
+  left: 2px;
+  width: 6px;
+  height: 4px;
+  background: #ecd498;
+  border-radius: 2px 2px 0 0;
+}
+
+/* Vertical Meeting Astragal Bead with Gold Accent */
+.door-meeting-astragal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  z-index: 6;
+  background: linear-gradient(180deg, #180e08 0%, #2a190f 50%, #180e08 100%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.85);
+}
+
+.door-meeting-astragal::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: linear-gradient(180deg, #b8934c 0%, #ecd498 40%, #fff2cf 50%, #b8934c 85%, #8c6c2b 100%);
+}
+
+.door-meeting-astragal--left {
+  right: 0;
+}
+.door-meeting-astragal--left::after {
+  right: 0;
+}
+
+.door-meeting-astragal--right {
+  left: 0;
+}
+.door-meeting-astragal--right::after {
+  left: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Boiserie Architectural Moldings & Panels
+   -------------------------------------------------------------------------- */
+.door-panel-assembly {
+  position: absolute;
+  inset: clamp(16px, 2.8vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.8vh, 22px);
+  pointer-events: none;
+}
+
+/* Upper Boiserie Panel — Grand Height */
+.boiserie-panel--upper {
+  flex: 1.85;
+  min-height: 0;
+  position: relative;
+}
+
+/* Lower Pedestal Kick Panel */
+.boiserie-panel--lower {
+  flex: 1.15;
+  min-height: 0;
+  position: relative;
+}
+
+/* Stepped Beveled Boiserie Molding Frame */
+.boiserie-beveled-frame {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #1a0f09;
+  background:
+    linear-gradient(135deg, rgba(236, 212, 152, 0.16) 0%, transparent 18%),
+    linear-gradient(180deg, #1a0f08 0%, #28170d 50%, #160d07 100%);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.82),
+    inset 0 3px 6px rgba(255, 235, 195, 0.12),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.75);
+  padding: clamp(6px, 1.1vw, 14px);
+  border-radius: 2px;
+}
+
+/* Fine Inset Champagne Gold Fillet */
+.boiserie-gold-fillet {
+  position: absolute;
+  inset: clamp(5px, 0.9vw, 11px);
+  border: 1px solid rgba(226, 199, 138, 0.52);
+  box-shadow:
+    0 0 8px rgba(201, 164, 92, 0.25),
+    inset 0 0 8px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
+/* Deep Recessed Inner Wood Field */
+.boiserie-inner-recess {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, #120a05 0%, #20130a 45%, #140b06 100%);
+  box-shadow:
+    inset 0 6px 16px rgba(0, 0, 0, 0.92),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.8),
+    inset 4px 0 10px rgba(0, 0, 0, 0.7),
+    inset -4px 0 10px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+
+/* Inner Bookmatched Wood Grain */
+.boiserie-inner-wood {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(245, 218, 155, 0.12) 0%, transparent 70%),
+    repeating-linear-gradient(90deg, transparent 0 14px, rgba(45, 25, 12, 0.4) 15px 16px, transparent 17px 32px);
+  opacity: 0.65;
+}
+
+/* Elegant Corner Inset Accents (Gold Leaf Geometry) */
+.boiserie-corner-accent {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: #ecd498;
+  border-style: solid;
+  opacity: 0.75;
+}
+
+.boiserie-corner-accent--tl {
+  top: 6px;
+  left: 6px;
+  border-width: 1.5px 0 0 1.5px;
+}
+
+.boiserie-corner-accent--tr {
+  top: 6px;
+  right: 6px;
+  border-width: 1.5px 1.5px 0 0;
+}
+
+.boiserie-corner-accent--bl {
+  bottom: 6px;
+  left: 6px;
+  border-width: 0 0 1.5px 1.5px;
+}
+
+.boiserie-corner-accent--br {
+  bottom: 6px;
+  right: 6px;
+  border-width: 0 1.5px 1.5px 0;
+}
+
+/* Middle Architectural Lock-Rail Frieze */
+.boiserie-rail-frieze {
+  height: clamp(16px, 2.6vh, 30px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #1b0f08 0%, #29180d 50%, #150d06 100%);
+  border-top: 1px solid #331f12;
+  border-bottom: 1px solid #100803;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.rail-gold-inlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 70%;
+}
+
+.rail-accent-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #d4b26f 40%, #ecd498 70%, transparent 100%);
+}
+
+.rail-accent-diamond {
+  width: 6px;
+  height: 6px;
+  background: #ecd498;
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(236, 212, 152, 0.7);
+}
+
+/* --------------------------------------------------------------------------
+   6. Bespoke Champagne Gold Architectural Pull Handles
+   -------------------------------------------------------------------------- */
+.luxury-handle-assembly {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 38px;
+  height: clamp(230px, 42vh, 460px);
+  pointer-events: none;
+}
+
+.luxury-handle-assembly--left {
+  right: clamp(24px, 4.5vw, 65px);
+}
+
+.luxury-handle-assembly--right {
+  left: clamp(24px, 4.5vw, 65px);
+}
+
+/* Cast Shadow on Dark Walnut Behind the Handle */
+.handle-cast-shadow {
+  position: absolute;
+  inset: -10px 0;
+  background: rgba(0, 0, 0, 0.72);
+  filter: blur(14px);
+  border-radius: 12px;
+  transform: translateX(10px) translateY(8px);
+}
+
+.luxury-handle-assembly--right .handle-cast-shadow {
+  transform: translateX(-10px) translateY(8px);
+}
+
+/* Heavy Solid Gold Mounting Brackets (Standoffs) */
+.handle-standoff {
+  position: relative;
+  width: 22px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.standoff-flange {
+  width: 20px;
+  height: 5px;
+  background: linear-gradient(90deg, #785a21 0%, #ecd498 50%, #785a21 100%);
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+}
+
+.standoff-stem {
+  width: 12px;
+  height: 14px;
+  background: linear-gradient(90deg, #8a6827 0%, #fff2cf 45%, #c9a45c 75%, #5a4115 100%);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Main Cylindrical Pull Bar */
+.handle-bar {
+  flex: 1;
+  width: clamp(12px, 1.2vw, 18px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.handle-cap {
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, #785a21 0%, #ecd498 50%, #785a21 100%);
+  border-radius: 3px 3px 0 0;
+}
+
+.handle-cap--bottom {
+  border-radius: 0 0 3px 3px;
+}
+
+/* Knurled Grip Bands on Ends */
+.handle-knurl {
+  width: 100%;
+  height: 20px;
+  background:
+    repeating-linear-gradient(45deg, #8c6c2b 0 2px, #ecd498 3px 4px),
+    repeating-linear-gradient(-45deg, #785a21 0 2px, #c9a45c 3px 4px);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Long Shaft with High-Contrast Specular Reflection */
+.handle-shaft {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  background:
+    linear-gradient(
+      90deg,
+      #593e10 0%,
+      #a07b32 15%,
+      #f5dfa8 38%,
+      #ffffff 50%,
+      #ecd498 65%,
+      #b8934c 82%,
+      #4a330b 100%
+    );
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.65),
+    0 0 16px rgba(245, 218, 155, 0.45);
+}
+
+/* Specular Light Sweep Glint on Handle */
+.handle-specular-glint {
+  position: absolute;
+  top: 15%;
+  left: 42%;
+  width: 2px;
+  height: 55%;
+  background: linear-gradient(180deg, transparent 0%, #ffffff 30%, #ffffff 70%, transparent 100%);
+  opacity: 0.9;
+  filter: blur(0.5px);
+}
+
+/* Keyhole Escutcheon Plate */
+.handle-escutcheon {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.escutcheon-plate {
+  width: 18px;
+  height: 28px;
+  background: linear-gradient(180deg, #8a6827 0%, #ecd498 45%, #6e4e18 100%);
+  border-radius: 4px;
+  border: 1px solid #cca558;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.escutcheon-keyhole {
+  width: 3px;
+  height: 10px;
+  background: #120a06;
+  border-radius: 1.5px;
+}
+
+/* --------------------------------------------------------------------------
+   7. ICON INTERIORS Centered Brand Crest & Tagline
+   -------------------------------------------------------------------------- */
+.entrance-brand-crest {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: min(88vw, 680px);
+  pointer-events: none;
+  /* Stays crisp for 1 second, then smoothly dissolves as doors open */
+  animation: brand-crest-dissolve 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+}
+
+/* Monogram Crest Ring & Glyph */
+.brand-crest-emblem {
+  position: relative;
+  width: clamp(68px, 9vw, 92px);
+  height: clamp(68px, 9vw, 92px);
+  margin-bottom: clamp(14px, 2vh, 22px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crest-halo {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 218, 155, 0.45) 0%, rgba(201, 164, 92, 0.15) 55%, transparent 75%);
+  filter: blur(10px);
+  animation: crest-halo-pulse 2.4s ease-in-out infinite alternate;
+}
+
+.crest-ring-outer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(236, 212, 152, 0.85);
+  background: radial-gradient(circle, rgba(28, 18, 10, 0.85) 0%, rgba(12, 8, 4, 0.95) 75%);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.85),
+    0 0 24px rgba(236, 212, 152, 0.45),
+    inset 0 0 15px rgba(201, 164, 92, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crest-ring-inner {
+  position: relative;
+  width: 82%;
+  height: 82%;
+  border-radius: 50%;
+  border: 1px dashed rgba(236, 212, 152, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.crest-icon-glyph {
+  font-size: 10px;
+  color: #ecd498;
+  margin-bottom: -2px;
+  text-shadow: 0 0 8px rgba(236, 212, 152, 0.9);
+}
+
+.crest-monogram {
+  font-family: var(--font-display, 'Cinzel', Georgia, serif);
+  font-size: clamp(26px, 3.6vw, 36px);
+  font-weight: 600;
+  line-height: 1;
+  color: #fff4db;
+  background: linear-gradient(135deg, #ffffff 0%, #ecd498 45%, #c9a45c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.8));
+}
+
+/* Brand Name Group */
+.brand-name-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-pre-label {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: clamp(0.6rem, 1.1vw, 0.72rem);
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  color: #d4b26f;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+}
+
+.brand-title {
+  font-family: var(--font-display, 'Cinzel', Georgia, serif);
+  font-size: clamp(1.6rem, 4.2vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  margin: 0;
+  color: #fcf6ea;
+  background: linear-gradient(135deg, #ffffff 0%, #f7ecd5 25%, #ecd498 50%, #fff6db 75%, #cca558 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 35px rgba(236, 212, 152, 0.65);
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.95));
+}
+
+/* Tagline */
+.brand-tagline {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(0.85rem, 1.8vw, 1.15rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: #ecd9ba;
+  margin-top: 10px;
+  margin-bottom: 0;
+  text-shadow:
+    0 2px 14px rgba(0, 0, 0, 0.95),
+    0 0 20px rgba(236, 212, 152, 0.4);
+}
+
+/* Champagne Gold Filigree Divider */
+.brand-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min(60vw, 320px);
+  margin-top: clamp(12px, 1.8vh, 18px);
+}
+
+.brand-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(236, 212, 152, 0.8) 50%, transparent 100%);
+  box-shadow: 0 0 8px rgba(236, 212, 152, 0.6);
+}
+
+.brand-divider-diamond {
+  font-size: 8px;
+  color: #ecd498;
+  text-shadow: 0 0 10px rgba(236, 212, 152, 0.9);
+}
+
+/* --------------------------------------------------------------------------
+   8. Luxury Skip / Enter Showroom Button
+   -------------------------------------------------------------------------- */
+.entrance-skip-btn {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(22px, env(safe-area-inset-right));
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(18, 12, 7, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(236, 212, 152, 0.55);
+  border-radius: 999px;
+  color: #f7ecd5;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    inset 0 0 10px rgba(201, 164, 92, 0.15);
+}
+
+.entrance-skip-btn:hover {
+  background: rgba(45, 28, 15, 0.9);
+  border-color: #ecd498;
+  color: #ffffff;
+  box-shadow:
+    0 6px 22px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(236, 212, 152, 0.45);
+  transform: translateY(-1px);
+}
+
+.entrance-skip-btn:focus-visible {
+  outline: 2px solid #ecd498;
+  outline-offset: 3px;
+}
+
+.skip-btn-arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #ecd498;
+  transition: transform 0.25s ease;
+}
+
+.entrance-skip-btn:hover .skip-btn-arrow {
+  transform: translateX(3px);
+}
+
+/* --------------------------------------------------------------------------
+   9. Keyframe Animations
+   -------------------------------------------------------------------------- */
+
+/* Dark Backdrop Fade — Dissolves to reveal the actual homepage showroom as doors part */
+@keyframes backdrop-reveal-homepage {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Left Door Swing — Grand, stately outward opening */
+@keyframes door-swing-open-left {
+  0% {
+    transform: rotateY(0deg);
+  }
+  15% {
+    transform: rotateY(-4deg); /* initial latch unlock tension */
+  }
+  100% {
+    transform: rotateY(-86deg);
+  }
+}
+
+/* Right Door Swing — Symmetrical outward opening */
+@keyframes door-swing-open-right {
+  0% {
+    transform: rotateY(0deg);
+  }
+  15% {
+    transform: rotateY(4deg);
+  }
+  100% {
+    transform: rotateY(86deg);
+  }
+}
+
+/* Brand Crest Dissolve as Doors Unlock */
+@keyframes brand-crest-dissolve {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.06);
+    filter: blur(8px);
+    visibility: hidden;
+  }
+}
+
+/* Volumetric Golden Light Burst through Opening Doors */
+@keyframes light-bloom-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleX(0.02) scaleY(0.7);
+  }
+  25% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scaleX(0.35) scaleY(0.95);
+  }
+  65% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) scaleX(0.85) scaleY(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleX(1.4) scaleY(1.2);
+  }
+}
+
+/* Subtle Golden Seam Breathing before Opening */
+@keyframes seam-glow-pulse {
+  0% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 6px rgba(245, 218, 155, 0.6));
+  }
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(245, 218, 155, 0.95));
+  }
+}
+
+/* Crest Halo Pulse */
+@keyframes crest-halo-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.08);
+    opacity: 0.75;
+  }
+}
+
+/* Spotlight Subtle Breathing */
+@keyframes spotlight-pulse {
+  0% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.03);
+  }
+}
+
+/* Ambient Shimmer Drift */
+@keyframes ambient-drift {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Entrance Overlay Smooth Fade-Out (Revealing Homepage) */
+@keyframes entrance-overlay-fadeout {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  85% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Instant Dismissal on Skip */
+@keyframes entrance-overlay-instant-dismiss {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+
+/* Tablet (Portrait / Landscape) */
+@media (max-width: 900px) {
+  .entrance-doors-stage {
+    perspective: 1400px;
+  }
+
+  .luxury-handle-assembly {
+    height: clamp(210px, 36vh, 320px);
+    width: 32px;
+  }
+
+  .luxury-handle-assembly--left {
+    right: clamp(14px, 3.5vw, 32px);
+  }
+
+  .luxury-handle-assembly--right {
+    left: clamp(14px, 3.5vw, 32px);
+  }
+
+  .brand-title {
+    letter-spacing: 0.22em;
+  }
+
+  .brand-tagline {
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Mobile Screens */
+@media (max-width: 600px) {
+  .entrance-doors-stage {
+    perspective: 1100px;
+    inset: clamp(32px, 5vh, 48px) 8px clamp(20px, 3.5vh, 32px);
+  }
+
+  .portal-architrave {
+    height: 38px;
+  }
+
+  .portal-threshold {
+    height: 22px;
+  }
+
+  .portal-jamb {
+    width: 10px;
+  }
+
+  .door-panel-assembly {
+    inset: 12px 8px;
+    gap: 8px;
+  }
+
+  .boiserie-beveled-frame {
+    padding: 6px;
+  }
+
+  .boiserie-gold-fillet {
+    inset: 4px;
+  }
+
+  .luxury-handle-assembly {
+    height: 180px;
+    width: 24px;
+  }
+
+  .luxury-handle-assembly--left {
+    right: 12px;
+  }
+
+  .luxury-handle-assembly--right {
+    left: 12px;
+  }
+
+  .handle-bar {
+    width: 10px;
+  }
+
+  .handle-knurl {
+    height: 12px;
+  }
+
+  .handle-escutcheon {
+    margin-top: 10px;
+  }
+
+  .escutcheon-plate {
+    width: 14px;
+    height: 20px;
+  }
+
+  .brand-crest-emblem {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 12px;
+  }
+
+  .brand-pre-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+  }
+
+  .brand-title {
+    font-size: 1.45rem;
+    letter-spacing: 0.18em;
+  }
+
+  .brand-tagline {
+    font-size: 0.78rem;
+    max-width: 86vw;
+    line-height: 1.4;
+  }
+
+  .brand-divider {
+    width: 75vw;
+    margin-top: 10px;
+  }
+
+  .entrance-skip-btn {
+    top: max(14px, env(safe-area-inset-top));
+    right: max(14px, env(safe-area-inset-right));
+    padding: 7px 13px;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. Accessibility: Prefers Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .entrance-overlay {
+    animation: entrance-overlay-instant-dismiss 0.2s ease-out forwards;
+  }
+
+  .luxury-door--left,
+  .luxury-door--right,
+  .entrance-brand-crest,
+  .portal-light-bloom,
+  .portal-light-center-beam,
+  .crest-halo,
+  .entrance-spotlight--center,
+  .entrance-ambient-shimmer {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,341 @@
+/* ==========================================================================
+   ICON INTERIORS — 3D HOUSE CONSTRUCTION INTRO
+   CONCEPT: BUILD A LUXURY HOUSE FROM SCRATCH IN 3D
+   Timeline: Foundation (0-1s) -> Pillars (1-2s) -> Floors (2-3s) ->
+             Hologram Complete (3-4s) -> Completed Mansion Reveal (4-5s) -> Homepage
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Root Fullscreen Overlay
+   -------------------------------------------------------------------------- */
+.house-construction-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: #050403;
+  color: #f8f4ed;
+  isolation: isolate;
+  user-select: none;
+  pointer-events: auto;
+  -webkit-font-smoothing: antialiased;
+  /* Smooth cinematic fade-out at end of 5s duration (4.65s to 5.2s) */
+  animation: construction-intro-fadeout 0.65s cubic-bezier(0.16, 1, 0.3, 1) 4.65s forwards;
+}
+
+.house-construction-intro--dismissing {
+  animation: construction-quick-dismiss 0.35s ease-out forwards !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Three.js 3D WebGL Canvas
+   -------------------------------------------------------------------------- */
+.construction-webgl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   3. Stage 5: Completed Photorealistic Mansion Reveal (4–5s)
+   Matches the user's reference image with ray-traced floor reflections
+   -------------------------------------------------------------------------- */
+.completed-mansion-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  background: radial-gradient(ellipse at 50% 50%, rgba(20, 15, 10, 0.4) 0%, #050403 85%);
+}
+
+.completed-mansion-reveal--active {
+  opacity: 1;
+}
+
+.completed-mansion-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: contrast(1.05) brightness(1.02);
+  /* Gentle cinematic zoom during the hold */
+  animation: completed-mansion-zoom 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.completed-reflection-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(180deg, transparent 0%, rgba(245, 218, 155, 0.08) 50%, rgba(5, 4, 3, 0.6) 100%);
+  pointer-events: none;
+}
+
+.completed-ambient-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 40% 35%, rgba(245, 218, 155, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 65% 55%, rgba(201, 164, 92, 0.06) 0%, transparent 35%);
+  animation: ambient-particles-breathe 2.4s ease-in-out infinite alternate;
+}
+
+/* --------------------------------------------------------------------------
+   4. Architectural HUD & Telemetry Status Overlay
+   -------------------------------------------------------------------------- */
+.construction-hud-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  padding: clamp(20px, 4vh, 40px) clamp(22px, 4vw, 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Top-Left Project Blueprint Stamp */
+.hud-project-stamp {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #cca558;
+  text-transform: uppercase;
+}
+
+.hud-pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #ecd498;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(236, 212, 152, 0.85);
+  animation: hud-dot-pulse 1.4s ease-in-out infinite alternate;
+}
+
+.hud-spec-code {
+  font-family: monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: rgba(201, 164, 92, 0.65);
+}
+
+/* Bottom Construction Phase Status Tracker */
+.hud-phase-tracker {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(85vw, 420px);
+}
+
+.phase-label {
+  font-family: monospace;
+  font-size: clamp(0.68rem, 1.1vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #eeddc2;
+  text-shadow: 0 0 12px rgba(236, 212, 152, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.phase-progress-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(212, 178, 111, 0.18);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.phase-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #cca558 0%, #ecd498 50%, #ffffff 100%);
+  box-shadow: 0 0 8px rgba(236, 212, 152, 0.8);
+  transition: width 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phase-progress-bar--foundation { width: 20%; }
+.phase-progress-bar--pillars { width: 40%; }
+.phase-progress-bar--floors { width: 65%; }
+.phase-progress-bar--hologram { width: 85%; }
+.phase-progress-bar--completed { width: 100%; }
+
+/* --------------------------------------------------------------------------
+   5. Minimalist Champagne Gold Skip Button
+   -------------------------------------------------------------------------- */
+.construction-skip-btn {
+  position: absolute;
+  top: max(20px, env(safe-area-inset-top));
+  right: max(22px, env(safe-area-inset-right));
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(14, 11, 7, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(236, 212, 152, 0.45);
+  border-radius: 999px;
+  color: #eeddc2;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.construction-skip-btn:hover {
+  background: rgba(45, 32, 18, 0.9);
+  border-color: #ecd498;
+  color: #ffffff;
+  box-shadow:
+    0 6px 22px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(236, 212, 152, 0.45);
+  transform: translateY(-1px);
+}
+
+.construction-skip-btn:focus-visible {
+  outline: 2px solid #ecd498;
+  outline-offset: 3px;
+}
+
+.skip-btn-icon {
+  font-size: 1rem;
+  line-height: 1;
+  color: #ecd498;
+  transition: transform 0.2s ease;
+}
+
+.construction-skip-btn:hover .skip-btn-icon {
+  transform: translateX(2px);
+}
+
+/* --------------------------------------------------------------------------
+   6. Keyframe Animations
+   -------------------------------------------------------------------------- */
+
+/* Final Dissolve into the Website Homepage */
+@keyframes construction-intro-fadeout {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  85% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Instant Dismissal on Skip */
+@keyframes construction-quick-dismiss {
+  0% { opacity: 1; }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Subtle Zoom on Completed Mansion Hold */
+@keyframes completed-mansion-zoom {
+  0% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+/* HUD Pulse Dot */
+@keyframes hud-dot-pulse {
+  0% { transform: scale(0.85); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Ambient Particle Breathing */
+@keyframes ambient-particles-breathe {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   7. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .hud-project-stamp {
+    top: max(16px, env(safe-area-inset-top));
+    left: 14px;
+  }
+
+  .hud-tag-badge {
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+  }
+
+  .hud-phase-tracker {
+    width: 90vw;
+  }
+
+  .phase-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  .construction-skip-btn {
+    top: max(14px, env(safe-area-inset-top));
+    right: max(14px, env(safe-area-inset-right));
+    padding: 6px 12px;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Accessibility: Prefers Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .house-construction-intro {
+    animation: construction-quick-dismiss 0.2s ease-out forwards;
+  }
+
+  .completed-mansion-photo,
+  .phase-progress-bar {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+

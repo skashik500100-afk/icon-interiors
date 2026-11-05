@@ -1,4 +1,6 @@
-export default function Footer({ onNavigate }) {
+import { BUSINESS_INFO, OFFICIAL_CATEGORIES } from "../data/designsData";
+
+export default function Footer({ onNavigate, onOpenConsultation }) {
   return (
     <footer className="luxury-footer">
       <div className="footer-container">
@@ -7,16 +9,16 @@ export default function Footer({ onNavigate }) {
             className="footer-brand-btn"
             onClick={() => onNavigate && onNavigate("home")}
           >
-            <span className="brand-seal">I</span>
+            <span className="brand-seal">✦</span>
             <div className="brand-text">
-              <strong>ICON</strong>
-              <small>INTERIORS & ARCHITECTURE</small>
+              <strong>{BUSINESS_INFO.name}</strong>
+              <small>BESPOKE ARCHITECTURE & LUXURY RESIDENCES</small>
             </div>
           </button>
 
           <p className="footer-manifesto">
             Crafting bespoke architectural residences, precision German modular joinery, and turnkey home
-            transformations. Flagship Experience Center located in Guntur, Andhra Pradesh.
+            transformations. Physical Flagship Experience Center on Syamala Nagar Main Road in Guntur, Andhra Pradesh.
           </p>
 
           <div className="footer-cta-col">
@@ -24,105 +26,101 @@ export default function Footer({ onNavigate }) {
               onClick={() => onNavigate && onNavigate("store-locator")}
               className="footer-store-btn"
             >
-              📍 Visit Guntur Flagship Studio
+              📍 Guntur Flagship Studio
             </button>
-            <a href="tel:+919885001008" className="footer-phone-cta">
-              +91 98850 01008
+            <a href={`tel:${BUSINESS_INFO.whatsappNumber}`} className="footer-phone-cta">
+              {BUSINESS_INFO.displayPhone}
             </a>
           </div>
         </div>
 
         <div className="footer-nav-grid">
+          {/* Col 1: 11 Design Ideas */}
           <div className="footer-col">
-            <h5>DESIGN IDEAS</h5>
-            <button
-              className="footer-link-btn"
-              onClick={() => onNavigate && onNavigate("design-ideas", "Master Bedroom Designs")}
-            >
-              Master Bedroom Designs
-            </button>
-            <button
-              className="footer-link-btn"
-              onClick={() => onNavigate && onNavigate("design-ideas", "Modular Kitchen Designs")}
-            >
-              Modular Kitchen Designs
-            </button>
-            <button
-              className="footer-link-btn"
-              onClick={() => onNavigate && onNavigate("design-ideas", "Living Room Designs")}
-            >
-              Living Room Designs
-            </button>
-            <button
-              className="footer-link-btn"
-              onClick={() => onNavigate && onNavigate("design-ideas", "Wardrobe Designs")}
-            >
-              Wardrobe Designs
-            </button>
-            <button
-              className="footer-link-btn"
-              onClick={() => onNavigate && onNavigate("design-ideas", "Bathroom Designs")}
-            >
-              Luxury Bathroom Designs
-            </button>
+            <h5>DESIGN IDEAS (11 ROOMS)</h5>
+            {OFFICIAL_CATEGORIES.slice(0, 6).map((cat) => (
+              <button
+                key={cat.id}
+                className="footer-link-btn"
+                onClick={() => onNavigate && onNavigate("design-ideas", cat.name)}
+              >
+                {cat.name}
+              </button>
+            ))}
           </div>
 
           <div className="footer-col">
-            <h5>NAVIGATION & TOOLS</h5>
+            <h5>MORE ROOMS & VILLAS</h5>
+            {OFFICIAL_CATEGORIES.slice(6).map((cat) => (
+              <button
+                key={cat.id}
+                className="footer-link-btn"
+                onClick={() => onNavigate && onNavigate("design-ideas", cat.name)}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Col 3: Essential Platform Tools */}
+          <div className="footer-col">
+            <h5>SERVICES & TOOLS</h5>
             <button
               className="footer-link-btn"
-              onClick={() => onNavigate && onNavigate("how-it-works")}
+              onClick={() => onNavigate && onNavigate("services")}
             >
-              How It Works (5 Steps)
+              Turnkey Architectural Services
             </button>
             <button
               className="footer-link-btn"
-              onClick={() => onNavigate && onNavigate("modular-journey")}
+              onClick={() => onNavigate && onNavigate("projects")}
             >
-              The Modular Journey
+              Completed Residences Portfolio
             </button>
             <button
               className="footer-link-btn"
-              onClick={() => onNavigate && onNavigate("price-calculators")}
+              onClick={() => onNavigate && onNavigate("ai-makeover")}
             >
-              Price Calculators & Estimator
+              ✦ AI Room Makeover
+            </button>
+            <button
+              className="footer-link-btn"
+              onClick={() => onNavigate && onNavigate("cost-estimator")}
+            >
+              Interior Cost Estimator
             </button>
             <button
               className="footer-link-btn"
               onClick={() => onNavigate && onNavigate("store-locator")}
             >
-              Guntur Experience Center
+              Guntur Flagship Experience Center
             </button>
           </div>
 
+          {/* Col 4: Verified Flagship Studio */}
           <div className="footer-col">
-            <h5>LOCATIONS SERVED</h5>
-            <span>Guntur City (Syamala Nagar, Lakshmipuram)</span>
-            <span>Amaravati Capital Region</span>
-            <span>Vijayawada (Benz Circle, Kanuru)</span>
-            <span>Mangalagiri & Tadepalli</span>
-            <span>Selected Andhra Pradesh & Telangana Residences</span>
-          </div>
-
-          <div className="footer-col">
-            <h5>GUNTUR FLAGSHIP STUDIO</h5>
-            <p>Syamala Nagar Main Road, Guntur, AP – 522006</p>
-            <p>Monday – Saturday: 10:00 AM – 8:30 PM</p>
-            <a
-              href="https://wa.me/919885001008?text=Hello%20ICON%20INTERIORS!%20I%20would%20like%20to%20visit%20your%20Guntur%20studio."
-              target="_blank"
-              rel="noreferrer"
-              className="footer-chat-link"
-            >
-              Chat on WhatsApp ↗
-            </a>
+            <h5>FLAGSHIP STUDIO & HOURS</h5>
+            <p className="footer-address-p">{BUSINESS_INFO.experienceCenter}</p>
+            <p className="footer-hours-p">⏱️ {BUSINESS_INFO.workingHours}</p>
+            <button className="footer-consult-link" onClick={onOpenConsultation}>
+              Book Free Architectural Consultation ›
+            </button>
           </div>
         </div>
 
-        <div className="footer-bottom-row">
-          <span>© {new Date().getFullYear()} ICON INTERIORS. All Rights Reserved.</span>
-          <span>Bespoke Luxury Architecture & Turnkey Execution</span>
-          <span>Syamala Nagar, Guntur, Andhra Pradesh</span>
+        <div className="footer-bottom-bar">
+          <div className="footer-copyright">
+            © {new Date().getFullYear()} {BUSINESS_INFO.legalName}. All rights reserved.
+          </div>
+          <div className="footer-legal-links">
+            <span>Privacy Policy</span>
+            <span>•</span>
+            <span>Terms of Service</span>
+            <span>•</span>
+            <span>45-Day Handover Guarantee</span>
+            <span>•</span>
+            <span>10-Year Warranty</span>
+          </div>
         </div>
       </div>
     </footer>
