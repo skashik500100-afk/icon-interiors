@@ -25,6 +25,7 @@ com\iconinteriors\entities\Design.class
 com\iconinteriors\dto\AuthRequest.class
 com\iconinteriors\repositories\UserRepository.class
 com\iconinteriors\entities\Quotation.class
+com\iconinteriors\controllers\StoreLocationController.class
 com\iconinteriors\repositories\CategoryRepository.class
 com\iconinteriors\dto\ApiResponse.class
 com\iconinteriors\entities\User.class

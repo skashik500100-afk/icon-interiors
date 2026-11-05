@@ -24,6 +24,7 @@ public class CorsConfig {
             config.setAllowedOriginPatterns(Arrays.asList(customOrigins.split(",")));
         } else {
             config.setAllowedOriginPatterns(Arrays.asList(
+                "https://icon-interiors.vercel.app",
                 "http://localhost:*",
                 "http://127.0.0.1:*",
                 "https://*.onrender.com",

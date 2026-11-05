@@ -55,6 +55,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/v1/enquiries").permitAll()
                 .requestMatchers("/api/v1/estimator/**").permitAll()
 
+                // Customer-specific enquiry endpoint (requires authentication)
+                .requestMatchers(HttpMethod.GET, "/api/v1/enquiries/my").authenticated()
+
                 // Admin-only endpoints strictly enforced via Spring Security
                 .requestMatchers("/api/admin/**", "/api/v1/admin/**").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/v1/enquiries/**").hasAnyAuthority("ROLE_ADMIN", "ADMIN")

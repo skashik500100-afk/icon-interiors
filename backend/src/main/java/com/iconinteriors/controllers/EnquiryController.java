@@ -31,6 +31,15 @@ public class EnquiryController {
         return ResponseEntity.ok(ApiResponse.ok(enquiryService.getAllEnquiries()));
     }
 
+    @GetMapping("/my")
+    public ResponseEntity<ApiResponse<List<Enquiry>>> getMyEnquiries(java.security.Principal principal) {
+        if (principal == null || principal.getName() == null) {
+            return ResponseEntity.status(org.springframework.http.HttpStatus.UNAUTHORIZED)
+                    .body(ApiResponse.error("Authentication required"));
+        }
+        return ResponseEntity.ok(ApiResponse.ok(enquiryService.getEnquiriesByEmail(principal.getName())));
+    }
+
     @PatchMapping("/{id}/status")
     public ResponseEntity<ApiResponse<Enquiry>> updateStatus(@PathVariable Long id, @RequestParam String status) {
         Enquiry updated = enquiryService.updateStatus(id, status);

@@ -2,6 +2,7 @@ package com.iconinteriors.controllers;
 
 import com.iconinteriors.dto.ApiResponse;
 import com.iconinteriors.entities.Design;
+import com.iconinteriors.repositories.UserRepository;
 import com.iconinteriors.services.DesignService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,17 +11,42 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 
     private final DesignService designService;
+    private final UserRepository userRepository;
 
-    public AdminController(DesignService designService) {
+    public AdminController(DesignService designService, UserRepository userRepository) {
         this.designService = designService;
+        this.userRepository = userRepository;
+    }
+
+    @GetMapping("/customers")
+    public ResponseEntity<ApiResponse<List<Map<String, Object>>>> getCustomers() {
+        List<Map<String, Object>> customers = userRepository.findAll().stream()
+                .map(u -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("id", u.getId());
+                    map.put("fullName", u.getFullName());
+                    map.put("email", u.getEmail());
+                    map.put("phone", u.getPhone() != null ? u.getPhone() : "");
+                    map.put("city", u.getCity() != null ? u.getCity() : "Guntur, AP");
+                    map.put("role", u.getRole());
+                    map.put("active", u.getActive());
+                    map.put("registeredAt", u.getCreatedAt() != null ? u.getCreatedAt().toString() : "");
+                    map.put("createdAt", u.getCreatedAt());
+                    return map;
+                })
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(ApiResponse.ok(customers));
     }
 
     @PostMapping("/designs")

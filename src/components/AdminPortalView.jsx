@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { api } from "../services/api";
+import { api, API_ROOT_URL } from "../services/api";
 import {
   BUSINESS_INFO,
   OFFICIAL_CATEGORIES,
@@ -213,7 +213,7 @@ export default function AdminPortalView({ onNavigate, onLogout, currentUser }) {
         const uploaded = await api.uploadDesignPhoto(photoModalTarget.id, photoModalFile);
         if (uploaded?.imageUrl) {
           finalUrl = uploaded.imageUrl.startsWith("/")
-            ? `http://localhost:8080${uploaded.imageUrl}`
+            ? `${API_ROOT_URL}${uploaded.imageUrl}`
             : uploaded.imageUrl;
         } else {
           finalUrl = await api.uploadImage(photoModalFile);
@@ -1191,9 +1191,10 @@ export default function AdminPortalView({ onNavigate, onLogout, currentUser }) {
                             <img
                               src={
                                 design.imageUrl.startsWith("data:") ||
-                                design.imageUrl.startsWith("http")
+                                design.imageUrl.startsWith("http") ||
+                                design.imageUrl.startsWith("blob:")
                                   ? design.imageUrl
-                                  : `http://localhost:8080${design.imageUrl}`
+                                  : `${API_ROOT_URL}${design.imageUrl}`
                               }
                               alt={design.title || design.name}
                               onError={(e) => {

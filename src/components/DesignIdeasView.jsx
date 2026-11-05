@@ -6,7 +6,7 @@ import {
   DESIGNS_DATABASE,
   BUSINESS_INFO
 } from "../data/designsData";
-import { isAdmin, api, normalizeDesign } from "../services/api";
+import { isAdmin, api, normalizeDesign, API_ROOT_URL } from "../services/api";
 
 export default function DesignIdeasView({
   category = "Bedroom",
@@ -47,24 +47,41 @@ export default function DesignIdeasView({
     return DESIGNS_DATABASE.map(normalizeDesign);
   });
 
+  const [isLoadingCatalog, setIsLoadingCatalog] = useState(false);
+  const [catalogError, setCatalogError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
   // Fetch from backend / synced storage on mount
   useEffect(() => {
     let ignore = false;
     const loadCatalog = async () => {
+      setIsLoadingCatalog(true);
+      setCatalogError(null);
       try {
         const list = await api.getDesigns();
-        if (!ignore && Array.isArray(list) && list.length > 0) {
-          setDesignsList(list);
+        if (!ignore && Array.isArray(list)) {
+          if (list.length > 0) {
+            setDesignsList(list);
+          } else {
+            setDesignsList((prev) => (prev.length > 0 ? prev : []));
+          }
         }
       } catch (err) {
         console.warn("Could not load latest designs catalog:", err);
+        if (!ignore) {
+          setCatalogError(err.message || "Unable to reach ICON INTERIORS backend services.");
+        }
+      } finally {
+        if (!ignore) {
+          setIsLoadingCatalog(false);
+        }
       }
     };
     loadCatalog();
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [retryCount]);
 
   const saveDesigns = (updated) => {
     setDesignsList(updated);
@@ -110,7 +127,7 @@ export default function DesignIdeasView({
         const uploaded = await api.uploadDesignPhoto(photoUploadTarget.id, photoUploadFile);
         if (uploaded?.imageUrl) {
           finalUrl = uploaded.imageUrl.startsWith("/")
-            ? `http://localhost:8080${uploaded.imageUrl}`
+            ? `${API_ROOT_URL}${uploaded.imageUrl}`
             : uploaded.imageUrl;
         } else {
           finalUrl = await api.uploadImage(photoUploadFile);
@@ -462,7 +479,66 @@ export default function DesignIdeasView({
           ===================================================================== */}
       <main className="gallery-cards-grid-section">
         <div className="gallery-grid-container">
-          {filteredDesigns.length === 0 ? (
+          {catalogError && (
+            <div
+              style={{
+                marginBottom: "24px",
+                padding: "16px 20px",
+                background: "rgba(220, 38, 38, 0.12)",
+                border: "1px solid rgba(220, 38, 38, 0.35)",
+                borderRadius: "10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: "12px",
+                color: "#fca5a5"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <span style={{ fontSize: "1.3rem" }}>⚠️</span>
+                <div>
+                  <strong style={{ color: "#fff", display: "block" }}>Backend Connection Notice</strong>
+                  <span style={{ fontSize: "0.88rem" }}>{catalogError}</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setRetryCount((c) => c + 1)}
+                style={{
+                  background: "#d4af37",
+                  color: "#0a0a0a",
+                  fontWeight: 600,
+                  border: "none",
+                  padding: "8px 16px",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  fontSize: "0.85rem"
+                }}
+              >
+                ↻ Retry Connection
+              </button>
+            </div>
+          )}
+
+          {isLoadingCatalog ? (
+            <div style={{ padding: "80px 20px", textAlign: "center", color: "#d4af37" }}>
+              <div
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  border: "3px solid rgba(212, 175, 55, 0.2)",
+                  borderTopColor: "#d4af37",
+                  borderRadius: "50%",
+                  margin: "0 auto 16px auto",
+                  animation: "spin 1s linear infinite"
+                }}
+              />
+              <p style={{ letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.85rem" }}>
+                Connecting to ICON Studio Catalog Engine...
+              </p>
+            </div>
+          ) : filteredDesigns.length === 0 ? (
             <div className="gallery-empty-state">
               <span className="empty-blueprint-icon">📐</span>
               <h3>No Designs Match Your Selected Filters</h3>

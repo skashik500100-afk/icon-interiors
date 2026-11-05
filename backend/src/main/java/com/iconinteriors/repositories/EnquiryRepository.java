@@ -12,6 +12,7 @@ public interface EnquiryRepository extends JpaRepository<Enquiry, Long> {
     Optional<Enquiry> findByEnquiryCode(String enquiryCode);
     List<Enquiry> findByStatus(String status);
     List<Enquiry> findByPhoneOrderByCreatedAtDesc(String phone);
+    List<Enquiry> findByEmailIgnoreCaseOrderByCreatedAtDesc(String email);
     List<Enquiry> findAllByOrderByCreatedAtDesc();
 }
 

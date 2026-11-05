@@ -37,6 +37,13 @@ public class EnquiryService {
         return enquiryRepository.findAllByOrderByCreatedAtDesc();
     }
 
+    public List<Enquiry> getEnquiriesByEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return List.of();
+        }
+        return enquiryRepository.findByEmailIgnoreCaseOrderByCreatedAtDesc(email.trim());
+    }
+
     public Optional<Enquiry> getEnquiryById(Long id) {
         return enquiryRepository.findById(id);
     }

@@ -12,13 +12,32 @@ export function isAdmin(user) {
   return role === "ADMIN" || role === "ROLE_ADMIN" || role.includes("ADMIN");
 }
 
+// Centralized API Base URL Configuration
+// Priority: VITE_API_BASE_URL -> VITE_API_URL -> Production Render default / Localhost fallback
+const RAW_CONFIGURED_URL = (
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? "https://icon-interiors-backend.onrender.com" : "http://localhost:8080")
+).trim().replace(/\/+$/, "");
+
+// API_ROOT_URL: e.g. "https://icon-interiors-backend.onrender.com" or "http://localhost:8080"
+export const API_ROOT_URL = RAW_CONFIGURED_URL.replace(/\/api\/v1$/, "");
+
+// API_BASE_URL: e.g. "https://icon-interiors-backend.onrender.com/api/v1" or "http://localhost:8080/api/v1"
+export const API_BASE_URL = `${API_ROOT_URL}/api/v1`;
+
 export function normalizeDesign(d) {
   if (!d) return d;
   const id = d.id || "";
   const name = d.name || d.title || "Architectural Design";
   const title = d.title || d.name || name;
-  const category = d.category || d.categoryName || "Living Room";
-  const categoryName = d.categoryName || d.category || category;
+
+  // Handle category whether it's an object from JPA (Category entity) or string
+  const category = (typeof d.category === "object" && d.category?.name)
+    ? d.category.name
+    : (d.category || d.categoryName || "Living Room");
+  const categoryName = d.categoryName || category;
+
   const description = d.description || d.leadDescription || "";
   const leadDescription = d.leadDescription || d.description || description;
   const style = d.style || "Modern";
@@ -28,7 +47,13 @@ export function normalizeDesign(d) {
   const dimensions = d.dimensions || d.roomType || "300 sq.ft Space";
   const handoverTimeline = d.handoverTimeline || "35 Days";
   const warrantyTerms = d.warrantyTerms || "10-Year Comprehensive Warranty";
-  const imageUrl = d.imageUrl || "";
+
+  // Prefix relative upload URLs with API_ROOT_URL so images load from Render or localhost
+  let imageUrl = d.imageUrl || "";
+  if (imageUrl && imageUrl.startsWith("/") && !imageUrl.startsWith("//")) {
+    imageUrl = `${API_ROOT_URL}${imageUrl}`;
+  }
+
   const featured = Boolean(d.featured ?? d.isFeatured ?? false);
   const isFeatured = featured;
   let specifications = ["BWP 710 Marine Ply", "High-CRI Warm LEDs", "German Blum Hardware"];
@@ -66,7 +91,16 @@ export function normalizeDesign(d) {
   };
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/v1";
+// Health Check utility targeting GET /api/health
+export async function checkBackendHealth() {
+  try {
+    const res = await fetch(`${API_ROOT_URL}/api/health`, { method: "GET" });
+    if (!res.ok) throw new Error(`Health check returned HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    return { status: "DOWN", error: err.message };
+  }
+}
 
 // Helper to retrieve stored JWT
 function getAuthHeader() {
@@ -112,60 +146,39 @@ export const api = {
   // AUTHENTICATION
   // --------------------------------------------------------------------------
   async login({ email, password }) {
-    try {
-      const res = await request("/auth/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password })
-      });
-      if (res.data?.token) {
-        const userObj = {
-          ...res.data,
-          name: res.data.fullName || res.data.name || email.split("@")[0]
-        };
-        localStorage.setItem("icon_auth_token", res.data.token);
-        localStorage.setItem("icon_current_user", JSON.stringify(userObj));
-        return userObj;
-      }
-      return res.data;
-    } catch {
-      // Local demo fallback if backend is offline
-      const mockUser = {
-        token: "demo-jwt-token-active",
-        id: 1,
-        fullName: email.split("@")[0].toUpperCase(),
-        email,
-        role: email.includes("admin") ? "ROLE_ADMIN" : "ROLE_CUSTOMER"
+    const res = await request("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password })
+    });
+    const data = res.data || res;
+    if (data?.token) {
+      const userObj = {
+        ...data,
+        name: data.fullName || data.name || email.split("@")[0]
       };
-      localStorage.setItem("icon_auth_token", mockUser.token);
-      localStorage.setItem("icon_current_user", JSON.stringify(mockUser));
-      return mockUser;
+      localStorage.setItem("icon_auth_token", data.token);
+      localStorage.setItem("icon_current_user", JSON.stringify(userObj));
+      return userObj;
     }
+    throw new Error(res.message || "Invalid authentication response received from server.");
   },
 
   async register({ fullName, email, phone, city, password }) {
-    try {
-      const res = await request("/auth/register", {
-        method: "POST",
-        body: JSON.stringify({ fullName, email, phone, city, password })
-      });
-      if (res.data?.token) {
-        localStorage.setItem("icon_auth_token", res.data.token);
-        localStorage.setItem("icon_current_user", JSON.stringify(res.data));
-      }
-      return res.data;
-    } catch {
-      // Fallback
-      const mockUser = {
-        token: "demo-jwt-token-active",
-        id: Date.now(),
-        fullName,
-        email,
-        role: "ROLE_CUSTOMER"
+    const res = await request("/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ fullName, email, phone, city, password })
+    });
+    const data = res.data || res;
+    if (data?.token) {
+      const userObj = {
+        ...data,
+        name: data.fullName || data.name || email.split("@")[0]
       };
-      localStorage.setItem("icon_auth_token", mockUser.token);
-      localStorage.setItem("icon_current_user", JSON.stringify(mockUser));
-      return mockUser;
+      localStorage.setItem("icon_auth_token", data.token);
+      localStorage.setItem("icon_current_user", JSON.stringify(userObj));
+      return userObj;
     }
+    return data;
   },
 
   logout() {
@@ -187,99 +200,53 @@ export const api = {
   // --------------------------------------------------------------------------
   async getDesigns(params = {}) {
     const query = new URLSearchParams(params).toString();
-    let custom = [];
-    try {
-      const stored = localStorage.getItem("icon_custom_designs");
-      if (stored) custom = JSON.parse(stored);
-    } catch {
-      custom = [];
-    }
-
-    try {
-      const res = await request(`/designs${query ? `?${query}` : ""}`);
-      const rawList = res.data && res.data.length > 0 ? res.data : DESIGNS_DATABASE;
-      const customMap = new Map(custom.map((d) => [d.id, d]));
-      const merged = rawList.map((d) => customMap.get(d.id) || d);
-      custom.forEach((d) => {
-        if (!merged.some((m) => m.id === d.id)) {
-          merged.unshift(d);
-        }
-      });
-      return merged.map(normalizeDesign);
-    } catch {
-      const base = [...DESIGNS_DATABASE];
-      const customMap = new Map(custom.map((d) => [d.id, d]));
-      const merged = base.map((d) => customMap.get(d.id) || d);
-      custom.forEach((d) => {
-        if (!merged.some((m) => m.id === d.id)) {
-          merged.unshift(d);
-        }
-      });
-      return merged.map(normalizeDesign);
-    }
+    const endpoint = `/designs${query ? `?${query}` : ""}`;
+    const res = await request(endpoint);
+    const rawList = Array.isArray(res) ? res : Array.isArray(res?.data) ? res.data : [];
+    return rawList.map(normalizeDesign);
   },
 
   async getDesignById(id) {
-    try {
-      const res = await request(`/designs/${id}`);
-      return res.data ? normalizeDesign(res.data) : null;
-    } catch {
-      const found = DESIGNS_DATABASE.find((d) => d.id === id);
-      return found ? normalizeDesign(found) : null;
-    }
+    const res = await request(`/designs/${id}`);
+    const data = res.data || res;
+    return data ? normalizeDesign(data) : null;
   },
 
   // --------------------------------------------------------------------------
   // ENQUIRIES & CONSULTATIONS
   // --------------------------------------------------------------------------
   async submitEnquiry(enquiryData) {
-    try {
-      const res = await request("/enquiries", {
-        method: "POST",
-        body: JSON.stringify(enquiryData)
-      });
-      return res.data;
-    } catch {
-      // Offline fallback: save to localStorage enquiry pipeline
-      const stored = JSON.parse(localStorage.getItem("icon_offline_enquiries") || "[]");
-      const newEnquiry = {
-        ...enquiryData,
-        id: Date.now(),
-        enquiryCode: `ENQ-LOC-${Date.now().toString().slice(-4)}`,
-        status: "NEW",
-        createdAt: new Date().toISOString()
-      };
-      stored.unshift(newEnquiry);
-      localStorage.setItem("icon_offline_enquiries", JSON.stringify(stored));
-      return newEnquiry;
-    }
+    const res = await request("/enquiries", {
+      method: "POST",
+      body: JSON.stringify(enquiryData)
+    });
+    return res.data || res;
   },
 
   async getAllEnquiries() {
+    const res = await request("/enquiries");
+    return Array.isArray(res) ? res : Array.isArray(res?.data) ? res.data : [];
+  },
+
+  async getMyEnquiries() {
+    const res = await request("/enquiries/my");
+    return Array.isArray(res) ? res : Array.isArray(res?.data) ? res.data : [];
+  },
+
+  async getStoreLocations() {
     try {
-      const res = await request("/enquiries");
-      return res.data;
+      const res = await request("/store-locations");
+      return Array.isArray(res) ? res : Array.isArray(res?.data) ? res.data : [];
     } catch {
-      const local = JSON.parse(localStorage.getItem("icon_offline_enquiries") || "[]");
-      return local;
+      return [];
     }
   },
 
   async updateEnquiryStatus(id, status) {
-    try {
-      const res = await request(`/enquiries/${id}/status?status=${encodeURIComponent(status)}`, {
-        method: "PATCH"
-      });
-      return res.data;
-    } catch {
-      const stored = JSON.parse(localStorage.getItem("icon_offline_enquiries") || "[]");
-      const idx = stored.findIndex(e => e.id === id);
-      if (idx !== -1) {
-        stored[idx].status = status;
-        localStorage.setItem("icon_offline_enquiries", JSON.stringify(stored));
-      }
-      return { id, status };
-    }
+    const res = await request(`/enquiries/${id}/status?status=${encodeURIComponent(status)}`, {
+      method: "PATCH"
+    });
+    return res.data || res;
   },
 
   // --------------------------------------------------------------------------
@@ -289,37 +256,30 @@ export const api = {
     if (!file) return "";
     const formData = new FormData();
     formData.append("file", file);
-    try {
-      const res = await request("/admin/upload-image", {
-        method: "POST",
-        body: formData
-      });
-      const url = res.data?.url || (typeof res.data === "string" ? res.data : "");
-      if (url) {
-        return url.startsWith("/") ? `http://localhost:8080${url}` : url;
-      }
-      return "";
-    } catch (err) {
-      console.warn("Backend upload failed, using local object URL fallback:", err);
-      return URL.createObjectURL(file);
+    const res = await request("/admin/upload-image", {
+      method: "POST",
+      body: formData
+    });
+    const url = res.data?.url || (typeof res.data === "string" ? res.data : "");
+    if (url) {
+      return url.startsWith("/") ? `${API_ROOT_URL}${url}` : url;
     }
+    return "";
   },
 
   async uploadDesignPhoto(id, file) {
     if (!file || !id) return null;
     const formData = new FormData();
     formData.append("file", file);
-    try {
-      const res = await request(`/admin/designs/${encodeURIComponent(id)}/upload-photo`, {
-        method: "POST",
-        body: formData
-      });
-      return res.data;
-    } catch (err) {
-      console.warn("Backend design photo upload failed:", err);
-      const url = URL.createObjectURL(file);
-      return { id, imageUrl: url };
+    const res = await request(`/admin/designs/${encodeURIComponent(id)}/upload-photo`, {
+      method: "POST",
+      body: formData
+    });
+    const data = res.data || res;
+    if (data?.imageUrl && data.imageUrl.startsWith("/")) {
+      data.imageUrl = `${API_ROOT_URL}${data.imageUrl}`;
     }
+    return data;
   },
 
   async createOrUpdateDesign(design) {
