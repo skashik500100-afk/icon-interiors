@@ -1,0 +1,12 @@
+# ==============================================================================
+# REPOSITORY ROOT DOCKER BUILD IGNORES
+# ==============================================================================
+node_modules/
+dist/
+.git/
+.github/
+.vscode/
+backend/target/
+backend/uploads/
+*.log
+

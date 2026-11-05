@@ -18,7 +18,20 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "http://127.0.0.1:*"));
+        
+        String customOrigins = System.getenv("CORS_ALLOWED_ORIGINS");
+        if (customOrigins != null && !customOrigins.trim().isEmpty()) {
+            config.setAllowedOriginPatterns(Arrays.asList(customOrigins.split(",")));
+        } else {
+            config.setAllowedOriginPatterns(Arrays.asList(
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "https://*.onrender.com",
+                "https://*.vercel.app",
+                "https://*.netlify.app",
+                "https://*.*"
+            ));
+        }
         config.setAllowedHeaders(Collections.singletonList("*"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setExposedHeaders(Arrays.asList("Authorization", "Content-Disposition"));

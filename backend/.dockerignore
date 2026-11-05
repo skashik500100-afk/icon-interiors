@@ -1,0 +1,16 @@
+# ==============================================================================
+# ICON INTERIORS - DOCKER BUILD IGNORES
+# ==============================================================================
+target/
+*.class
+.mvn/
+mvnw
+mvnw.cmd
+.git/
+.gitignore
+.idea/
+.vscode/
+*.iml
+*.log
+uploads/
+
