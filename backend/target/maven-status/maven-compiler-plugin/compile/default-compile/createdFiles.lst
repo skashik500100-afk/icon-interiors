@@ -10,6 +10,7 @@ com\iconinteriors\dto\RegisterRequest.class
 com\iconinteriors\config\CorsConfig.class
 com\iconinteriors\config\SecurityConfig.class
 com\iconinteriors\controllers\DesignController.class
+com\iconinteriors\controllers\HealthController.class
 com\iconinteriors\repositories\QuotationRepository.class
 com\iconinteriors\entities\Category.class
 com\iconinteriors\security\CustomUserDetailsService.class

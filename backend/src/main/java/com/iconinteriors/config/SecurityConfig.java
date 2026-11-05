@@ -43,8 +43,8 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Public authentication, uploaded media assets & error endpoints
-                .requestMatchers("/api/v1/auth/**", "/uploads/**", "/error").permitAll()
+                // Public root, health check, authentication, uploaded media assets & error endpoints
+                .requestMatchers("/", "/api/health", "/api/v1/health", "/api/v1/auth/**", "/uploads/**", "/error").permitAll()
 
                 // Public design catalog & categories browsing
                 .requestMatchers(HttpMethod.GET, "/api/v1/designs/**").permitAll()
@@ -56,11 +56,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/estimator/**").permitAll()
 
                 // Admin-only endpoints strictly enforced via Spring Security
-                .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+                .requestMatchers("/api/admin/**", "/api/v1/admin/**").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/v1/enquiries/**").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                 .requestMatchers(HttpMethod.PATCH, "/api/v1/enquiries/**").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
-                // All other endpoints require authentication
+                // All other customer-specific endpoints strictly require authentication
                 .anyRequest().authenticated()
             );
 
